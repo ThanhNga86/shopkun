@@ -48,7 +48,7 @@ public class HomeController {
 
 		promotionProducts(model);
 
-//		suggestProducts(model);
+		suggestProducts(model);
 
 		cookieProducts(model);
 		return "home/index";
