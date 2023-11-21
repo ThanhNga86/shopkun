@@ -1,8 +1,5 @@
 package com.shopkun.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,29 +42,15 @@ public class HomeController {
 	@Autowired
 	private OrderDetailDao daoOrderDetail;
 
-	public static Connection getConnection() {
-		Connection connec = null;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			connec = DriverManager.getConnection("jdbc:mysql://roundhouse.proxy.rlwy.net:28758/railway", "root",
-					"5E1EdGFDc2dDCehgC4FHHE46B-1BeCE6");
-			System.out.println("Ket noi thanh cong");
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Kết nối thất bại!");
-			e.printStackTrace();
-		}
-		return connec;
-	}
-
-	@GetMapping("/")
+	@GetMapping("")
 	public String index(Model model) {
-		categories(model);
-
-		promotionProducts(model);
-
-		suggestProducts(model);
-
-		cookieProducts(model);
+//		categories(model);
+//
+//		promotionProducts(model);
+//
+//		suggestProducts(model);
+//
+//		cookieProducts(model);
 		return "home/index";
 	}
 
