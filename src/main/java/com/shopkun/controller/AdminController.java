@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,22 +70,8 @@ public class AdminController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-	public static Connection getConnection() {
-	    Connection connec = null;
-	    try {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/QLMoTo", "root", "5E1EdGFDc2dDCehgC4FHHE46B-1BeCE6");
-	    } catch (ClassNotFoundException | SQLException e) {
-	        System.out.println("Kết nối thất bại!");
-	        e.printStackTrace();
-	    }
-	    return connec;
-	}
-	
 	@GetMapping
 	public String dashboard(Model model) {
-		Connection connec = getConnection();
-		System.out.println(connec);
 		model.addAttribute("totalUsers", daoAccount.findAll().size());
 		model.addAttribute("totalProducts", daoProduct.findAll().size());
 		model.addAttribute("totalOrders", daoOrder.findAll().size());

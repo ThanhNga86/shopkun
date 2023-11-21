@@ -1,5 +1,8 @@
 package com.shopkun.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +44,20 @@ public class HomeController {
 	private CategoryDao daoCategory;
 	@Autowired
 	private OrderDetailDao daoOrderDetail;
+
+	public static Connection getConnection() {
+		Connection connec = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connec = DriverManager.getConnection("jdbc:mysql://roundhouse.proxy.rlwy.net:28758/railway", "root",
+					"5E1EdGFDc2dDCehgC4FHHE46B-1BeCE6");
+			System.out.println("Ket noi thanh cong");
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println("Kết nối thất bại!");
+			e.printStackTrace();
+		}
+		return connec;
+	}
 
 	@GetMapping("/")
 	public String index(Model model) {
@@ -200,12 +217,12 @@ public class HomeController {
 		int sizePage = 18;
 		List<Product> suggestProducts = daoProduct.findAllShuffle();
 		long totalSP = suggestProducts.size();
-		
+
 		// xóa dữ liệu cũ rồi nạp dữ liệu mới vào cookie
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if(cookie.getName().startsWith("suggestP_")) {
+				if (cookie.getName().startsWith("suggestP_")) {
 					cookie.setMaxAge(0);
 					cookie.setPath("/");
 					response.addCookie(cookie);
