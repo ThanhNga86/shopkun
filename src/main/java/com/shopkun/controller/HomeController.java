@@ -204,7 +204,7 @@ public class HomeController {
 		if (totalSP > sizePage) {
 			for (Product product : suggestProducts) {
 				Cookie cookie = new Cookie("suggestP_" + product.getId(), product.getId() + "");
-				cookie.setMaxAge(-1);
+				cookie.setMaxAge(1 * 24 * 60 * 60); // 1 day
 				cookie.setPath("/");
 				response.addCookie(cookie);
 			}
