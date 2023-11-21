@@ -103,7 +103,7 @@ public class SearchController {
 		}
 
 		for (Product product : products) {
-			body += "<a class=\"rs\" href=\"search?q=" + product.getName().trim() + "\">" + "<li>"
+			body += "<a class=\"rs\" href=\"/search?q=" + product.getName().trim() + "\">" + "<li>"
 					+ product.getName().trim() + "</li></a>";
 		}
 		return ResponseEntity.ok(body);
