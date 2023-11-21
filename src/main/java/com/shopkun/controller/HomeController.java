@@ -45,8 +45,8 @@ public class HomeController {
 	@GetMapping("")
 	public String index(Model model) {
 		categories(model);
-//
-//		promotionProducts(model);
+
+		promotionProducts(model);
 //
 //		suggestProducts(model);
 //
