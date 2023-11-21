@@ -1029,7 +1029,7 @@ public class AdminController {
 	public String orders(Model model, @RequestParam("page") Optional<Integer> pageNumber,
 			@RequestParam("filter") Optional<String> filter) {
 		int sizePage = 10;
-		Pageable page = PageRequest.of(pageNumber.orElse(1) - 1, sizePage, Sort.by("createDate").reverse());
+		Pageable page = PageRequest.of(pageNumber.orElse(1) - 1, sizePage, Sort.by("createDate"));
 		List<OrderDetail> orderDetails = daoOrderDetail.findAll();
 		model.addAttribute("orderDetails", orderDetails);
 		if (!filter.isPresent()) {

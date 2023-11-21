@@ -42,7 +42,7 @@ public class HomeController {
 	@Autowired
 	private OrderDetailDao daoOrderDetail;
 
-	@GetMapping()
+	@GetMapping("/")
 	public String index(Model model) {
 		categories(model);
 
