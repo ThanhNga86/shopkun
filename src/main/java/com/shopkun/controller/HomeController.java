@@ -47,10 +47,10 @@ public class HomeController {
 		categories(model);
 
 		promotionProducts(model);
-//
+
 //		suggestProducts(model);
-//
-//		cookieProducts(model);
+
+		cookieProducts(model);
 		return "home/index";
 	}
 
