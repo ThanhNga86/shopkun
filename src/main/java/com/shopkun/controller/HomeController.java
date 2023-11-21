@@ -205,11 +205,10 @@ public class HomeController {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().startsWith("suggestP_")) {
-					Cookie removeCk = new Cookie(cookie.getName(), cookie.getValue());
-					removeCk.setMaxAge(0);
-					removeCk.setPath("/");
-					response.addCookie(removeCk);
+				if (cookie.getName().contains("suggestP_")) {
+					cookie.setMaxAge(0);
+					cookie.setPath("/");
+					response.addCookie(cookie);
 				}
 			}
 		}
