@@ -42,7 +42,7 @@ public class HomeController {
 	@Autowired
 	private OrderDetailDao daoOrderDetail;
 
-	@GetMapping("")
+	@GetMapping()
 	public String index(Model model) {
 		categories(model);
 
@@ -202,16 +202,17 @@ public class HomeController {
 		long totalSP = suggestProducts.size();
 
 		// xóa dữ liệu cũ rồi nạp dữ liệu mới vào cookie
-//		Cookie[] cookies = request.getCookies();
-//		if (cookies != null) {
-//			for (Cookie cookie : cookies) {
-//				if (cookie.getName().startsWith("suggestP_")) {
-//					cookie.setMaxAge(0);
-//					cookie.setPath("/");
-//					response.addCookie(cookie);
-//				}
-//			}
-//		}
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().startsWith("suggestP_")) {
+					Cookie removeCk = new Cookie(cookie.getName(), cookie.getValue());
+					removeCk.setMaxAge(0);
+					removeCk.setPath("/");
+					response.addCookie(removeCk);
+				}
+			}
+		}
 		if (totalSP > sizePage) {
 			for (Product product : suggestProducts) {
 				Cookie cookie = new Cookie("suggestP_" + product.getId(), product.getId() + "");
