@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/categories/addCategory.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerAddCategory">
+		<div class="addCategory">
+			<form action="/admin/categories/addCategory" method="post" enctype="multipart/form-data">
+			    <div class="form-group">
+					  <label>Tên danh mục</label>
+					  <input type="text" name="name" class="inp form-control" th:value="${vlName}">
+					  <div class="message" th:text="${msName}"></div>
+			  	</div>
+			  	  
+			  	<div class="form-group">
+					<label>Ảnh danh mục</label>
+					<div class="ctnImageC">
+						<i class="fa-solid fa-x removeImageC"></i>
+						<img class="imageC" width="100%" height="100%">
+					</div>
+					<input type="file" class="fileC" name="image" style="display: none;">
+					<div class="message" th:text="${msImage}"></div>
+				</div>
+				
+				<div class="form-group mt-2">
+					<button class="btn btnSave">Thêm</button>
+					<span class="btn btnReset">Nhập lại</span>
+				</div>
+			</form>
+			
+			<script th:if="${addCategorySC!=null}">
+				swal("", "Thêm danh mục thành công", "success")
+			</script>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/categories/addCategory.js"></script>
+</html>

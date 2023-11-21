@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerSearch {
+		padding: 59px 0 0 0;
+	}
+
+	#containerSearch .search-products #paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerSearch {
+		padding: 59px 0 0 0;
+	}
+	
+	#containerSearch .search-products #paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+@media (max-width: 768px) {
+	#containerSearch {
+		padding: 59px 0 0 0;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerSearch {
+		padding: 94px 0 0 0;
+	}
+
+	#containerSearch .search-products .row {
+		display: grid;
+		grid-template-columns: auto auto;
+	}
+	
+	#containerSearch .search-products #paging .page>li {
+		display: block;
+		font-size: 12px;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+/* search products */
+#containerSearch .instruction {
+	color: white;
+	background-color: lightskyblue;
+}
+
+#containerSearch .instruction>a {
+	text-decoration: none;
+	color: white;
+	font-size: large;
+}
+
+#containerSearch .instruction .fa-angle-right {
+	margin: 0 5px;
+}
+
+#containerSearch .search-products {
+	padding: 10px;
+	background-color: white;
+	box-shadow: 0 4px 4px -2px rgba(0, 0, 0, .15)
+}
+
+#containerSearch .search-products .fa-receipt {
+	font-size: 30px;
+	color: deepskyblue;
+}
+
+#containerSearch .search-products>span {
+	font-size: larger;
+	font-weight: 500;
+}
+
+#containerSearch .search-products .product {
+	text-align: center;
+	padding-bottom: 5px;
+	border-radius: 6px;
+}
+
+#containerSearch .search-products .product .price-promotion {
+	height: 30px;
+}
+
+#containerSearch .search-products .product .product-priceDel {
+	height: 46px;
+}
+
+#containerSearch .search-products .product .promotion {
+	float: right;
+	padding: 2px 8px;
+	background-color: lightcoral;
+	color: white;
+	border-bottom-left-radius: 6px;
+	border-top-right-radius: 6px;
+	user-select: none;
+}
+
+#containerSearch .search-products .product .product-name {
+	text-align: left;
+	padding-left: 5px;
+	height: 46px;
+	white-space: normal;
+	overflow: hidden;
+}
+
+#containerSearch .search-products .product .product-price {
+	height: 22px;
+	font-weight: 500;
+	font-size: large;
+	color: rgb(255, 73, 22);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#containerSearch .search-products .product .price-del {
+	color: darkgray;
+	user-select: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#containerSearch .search-products .product .add-cart {
+	white-space: nowrap;
+	padding: 2px 6px;
+	color: white;
+	background-color: deepskyblue;
+	font-weight: 500;
+	border-radius: 6px;
+	cursor: pointer;
+	user-select: none;
+}
+
+#containerSearch .search-products .product .add-cart:hover {
+	opacity: 0.8;
+}
+
+#containerSearch .search-products .product>a {
+	text-decoration: none;
+	color: black;
+	font-size: 16px;
+}
+
+#containerSearch .search-products #paging {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	margin: 10px 0;
+}
+
+
+#containerSearch .search-products #paging .page {
+	text-decoration: none;
+	color: white;
+}
+
+#containerSearch .search-products #paging .page:hover {
+	opacity: 0.8;
+}

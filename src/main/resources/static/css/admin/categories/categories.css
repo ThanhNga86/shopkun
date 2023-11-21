@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerCategories .categories {
+		margin: 60px 0 0 240px;
+		padding: 10px;
+	}
+	
+	#paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerCategories .categories {
+		margin: 60px 0 0 0;
+		padding: 10px;
+	}
+	
+	#paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+@media (max-width: 576px) {
+	#paging .page>li {
+		display: block;
+		font-size: 12px;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+#containerCategories .categories {
+	background-color: white;
+	padding-bottom: 20px;
+}
+
+#containerCategories .categories label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerCategories .categories .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerCategories .categories table tr{
+	font-size: medium;
+}
+
+#containerCategories .categories table tr>th{
+	white-space: nowrap;
+}
+
+#containerCategories .categories .action {
+	white-space: nowrap;
+	font-size: medium;
+}
+
+#containerCategories .categories .action .edit {
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: deepskyblue;
+	color: white;
+	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerCategories .categories .action .remove {
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: lightcoral;
+	white-space: nowrap;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerCategories .categories .action .see {
+	margin: 2px;
+	text-decoration: none;
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: lightseagreen;
+	white-space: nowrap;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerCategories .categories .action .modal-body{
+	text-align: left;
+}
+
+
+#containerCategories .categories .message {
+	font-size: large;
+	color: red;
+}
+
+#containerCategories .categories .ctnImageC {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	width: 200px;
+	height: 180px;
+}
+
+#containerCategories .categories .ctnImageC .imageC {
+	cursor: pointer;
+	border: solid 1px lightgray;
+}
+
+#containerCategories .categories .ctnImageC .removeImageC {
+	display: none;
+	position: absolute;
+	color: gray;
+	cursor: pointer;
+	padding: 2px;
+	background-color: white;
+	opacity: 0.6;
+}
+
+#containerCategories .categories .ctnImageC .removeImageC:hover{
+	opacity: 1;
+}
+
+#containerCategories .categories .resultQ{
+	text-align: center;
+	font-size: larger; 
+	color: lightsalmon;
+	margin: 10px 0;
+}
+
+#paging {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+}
+
+#paging .page {
+	text-decoration: none;
+	color: white;
+}
+
+#paging .page:hover {
+	opacity: 0.8;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid lightskyblue;
+  border-color: lightskyblue transparent lightskyblue transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

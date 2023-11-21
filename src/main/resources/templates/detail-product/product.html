@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${title}"></title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<link rel="stylesheet" href="/slick-1.8.1/slick/slick.css">
+<link rel="stylesheet" href="/slick-1.8.1/slick/slick-theme.css">
+<link rel="stylesheet" href="/css/detail-product/product.css">
+</head>
+<body>
+	<div th:insert="~{home/header}"></div>
+	
+	<div class="container" id="containerProduct">
+		<div class="instruction p-1" th:text="${instruction}"></div>
+		
+		<div class="product">
+			<div class="row">
+				<div class="product-images col-xl-5 col-lg-5 col-md-6 col-sm-6">
+					<div class="image-first">
+						<img th:src="'/images/'+${product.images[0]}" width="100%" height="100%">
+					</div>
+					
+					<div class="images">
+						<div class="image" th:each="image : ${product.images}">
+							<img th:src="'/images/'+${image}" width="100%" height="100%">
+						</div>
+					</div>
+					
+					<div class="action-detail row">
+						<div class="detail-image">
+							<div class="viewDetailImage">
+								<img th:src="'/images/'+${product.images[0]}" width="100%">
+								<div class="viewImage" th:text="'Xem '+${product.images.size}+' hình'"></div>
+							</div>
+						</div>
+						
+						<div class="reviews">
+							<div class="seeReview" th:if="${totalReview!=0}">
+								<i class="fa-solid fa-clipboard-list"></i>
+								<div th:text="'Xem '+${totalReview}+' nhận xét'"></div>
+							</div>
+							
+							<div class="seeReview" th:if="${totalReview==0}">
+								<i class="fa-solid fa-clipboard-list"></i>
+								<div>Xem nhận xét</div>
+							</div>
+						</div>
+						
+						<div class="infoP">
+							<div class="info">
+								<i class="fa-solid fa-rectangle-list"></i>
+								<div>Thông tin chi tiết</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="show-detailImage">
+						<i id="hidden-detailImage" class="fa-solid fa-x"></i>
+					</div>
+					<div class="show-images">
+						<div class="row">
+							<div class="col-xl-7 col-lg-8 col-md-9 col-sm-10" th:each="image : ${product.images}">
+								<img th:src="'/images/'+${image}" width="100%" height="100%">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div th:if="${product.quantity!=0}" th:id="${product.id}" class="product-describe col-xl-6 col-lg-6 col-md-5 col-sm-5">
+					<div class="name" th:text="${product.name}"></div>
+					<div class="review-point">
+						<span class="point" th:if="${totalReview!=0}">Đánh giá: </span>
+						<span class="text-info" th:if="${totalReview!=0}" th:text="'('+${totalReview}+' đánh giá)'">(35 đánh giá)</span>
+						<span th:if="${totalReview==0}">Đánh giá: <span style="color: darkgray;">chưa có đánh giá</span></span>
+					</div>
+					
+					<div class="price-del">
+						<span class="price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+'đ'"></span>
+						<del class="price-del mx-1" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+' đ'"></del>
+						<span th:if="${product.promotion}" th:text="'-'+${product.discount}+'%'"></span>
+					</div>
+					
+					<div class="shopping-cartP my-2">
+						<span>Chọn số lượng: </span>
+						<div class="btn-group mx-1" role="group">
+						  <button class="minus"><i class="fa-solid fa-minus"></i></button>
+						  <span class="quantity">1</span>
+						  <button class="plus"><i class="fa-regular fa-plus"></i></button>
+						</div>
+						<span class="add-cart" th:id="${product.id}">Cho vào giỏ <i class="fa-solid fa-cart-plus"></i></span>
+					</div>
+					
+					<div th:id="${product.id}" class="btnOrder col-xl-7 col-lg-9 col-md-12 col-sm-10"><i class="fa-solid fa-cart-shopping"></i> Đặt mua</div>
+				</div>
+				
+				<div th:if="${product.quantity==0}" th:id="${product.id}" class="product-describe col-xl-6 col-lg-6 col-md-7 col-sm-7">
+					<div class="name" th:text="${product.name}"></div>
+					<h5 class="text-danger">Sản phẩm tạm thời đã hết hàng !</h5>
+				</div>
+			</div>
+		</div>
+		
+		<div class="similar-product" th:if="${totalPSimilar > 0}">
+			<div class="row">
+				<div class="title">Sản phẩm tương tự</div>
+								
+				<div class="similarProducts">
+					<div class="p-1" th:each="product : ${productSimilar}">
+						<div class="product border">
+							<div class="price-promotion">
+								<div class="promotion" th:if="${product.promotion}" th:text="'-'+${product.discount}+'%'"></div>
+							</div>
+							<a th:href="'product?id='+${product.id}+'&name='+${product.name}">
+								<img th:src="'/images/'+${product.images[0]}" width="100%" height="200px">
+								
+								<div class="product-name" th:text="${product.name}"></div>
+								<div class="product-priceDel">
+									<div class="product-price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+' đ'"></div>
+									<del class="price-del" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+' đ'"></del>
+								</div>
+							</a>
+						</div>
+					</div>
+					
+					<div class="p-1">
+						<div class="viewAll border">
+							<a th:href="'/category?id='+${category.id}+'&name='+ ${category.name}">
+								Xem tất cả
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="info-product" id="info-product">
+			<div class="row">
+				<div class="title">Thông tin sản phẩm</div>
+				
+				<table class="table table-striped table-light">
+					<tr th:each="d : ${product.describes}" th:if="${#strings.contains(d, '|')}">
+						<td class="type" th:text="${#strings.substringBefore(d, '|')}"></td>
+						<td th:text="${#strings.substringAfter(d, '|')}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div class="review-product">
+			<div class="row">
+				<div class="title">Đánh giá & bình luận</div>
+				<div class="result-review col-xl-5 col-lg-6 col-md-6 col-sm-6" th:if="${totalReview!=0}">
+					<div class="star-rv"></div>
+					<div class="level-rv">Đánh giá trung bình</div>
+					<div class="total-rv" th:text="'(Có '+${totalReview}+' đánh giá)'"></div>
+					<div class="point-rv" th:text="${rate}"></div>
+				</div>
+				
+				<div class="title">Chia sẻ nhận xét của bạn</div>
+				<div class="my-review">
+					<span class="stars col-xl-5 col-lg-5 col-md-6 col-sm-6">
+						<div class="star" id="dislike">
+							<i class="fa-solid fa-star"></i>
+							<div>Không thích</div>
+						</div>
+						<div class="star" id="temporary">
+							<i class="fa-solid fa-star"></i>
+							<div>Tạm được</div>
+						</div>
+						<div class="star" id="normal">
+							<i class="fa-solid fa-star"></i>
+							<div>Bình thường</div>
+						</div>
+						<div class="star" id="satisfied">
+							<i class="fa-solid fa-star"></i>
+							<div>Hài lòng</div>
+						</div>
+						<div class="star" id="great">
+							<i class="fa-solid fa-star"></i>
+							<div>Tuyệt vời</div>
+						</div>
+					</span>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xl-8 col-lg-8 col-md-10 col-sm-10 my-2">
+					<textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Viết bình luận / câu hỏi / nhận xét..."></textarea>
+					<div class="action p-2 bg-body-secondary">
+						<div class="ctn-file">
+							<input type="file" name="file" id="file" multiple="multiple" style="display: none;">
+							<div id="sendFile">
+								<i class="fa-solid fa-camera"></i>
+								<span>Gửi ảnh</span>
+							</div>
+						</div>
+						<button type="btn" class="btn" id="btnReview">Gửi đánh giá</button>
+					</div>
+					
+					<div class="show-files row bg-body-secondary"></div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="containerComment">
+					<div class="review-comment">
+						<div class="cmt" th:id="${review.id}" th:each="review : ${reviews}">
+							<span class="name-cmt" th:text="${review.account.fullName}"></span>
+							<span class="star-cmt" th:id="${review.rate}" th:text="${review.rate}"></span>
+							<div class="text-cmt" th:text="${review.comment}"></div>
+							<div class="image-cmt">
+								<img th:each="image : ${review.images}" th:src="'/images/'+${image}" width="100" height="100">
+							</div>
+							<label class="reply-cmt">
+								Trả lời
+							</label>
+							<span style="color: darkgray" th:text="${#dates.format(review.createDate, 'dd-MM-yyyy')}"></span>
+							<div class="feedbackCmt"></div>
+							<div class="feedbacks">
+								<div class="cmtFB" th:id="${review.id}" th:each="reviewFB : ${reviewFBs}" th:if="${reviewFB.review.id==review.id}">
+									<span class="name-cmtFB" th:text="${reviewFB.account.fullName}"></span>
+									<i th:if="${reviewFB.respondent!=review.account.fullName}" class="fa-solid fa-angle-right"></i>
+									<span th:if="${reviewFB.respondent!=review.account.fullName}" class="respondent" th:text="${reviewFB.respondent}"></span>
+									<div class="text-cmtFB" th:text="${reviewFB.comment}"></div>
+									<div class="image-cmtFB">
+										<img th:each="image : ${reviewFB.images}" th:src="'/images/'+${image}" width="100" height="100">
+									</div>
+									<label class="reply-cmtFB">
+										Trả lời
+									</label>
+									<span style="color: darkgray" th:text="${#dates.format(reviewFB.createDate, 'dd-MM-yyyy')}"></span>
+									<div class="feedbackCmtFB"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="viewMore">
+						<span th:if="${totalCmt > 10}" class="btnViewMore" id="viewCmt">Xem thêm bình luận <i class="fa-solid fa-angle-down"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="cookie-product" th:if="${totalCookieP!=0}">
+			<div class="row">
+				<div class="title">Sản phẩm đã xem</div>
+								
+				<div class="cookieProducts">
+					<div class="p-1" th:each="product : ${cookieProducts}">
+						<div class="product border">
+							<div class="price-promotion">
+								<div class="promotion" th:if="${product.promotion}" th:text="'-'+${product.discount}+'%'"></div>
+							</div>
+							<a th:href="'product?id='+${product.id}+'&name='+${product.name}">
+								<img th:src="'/images/'+${product.images[0]}" width="100%" height="200px">
+								
+								<div class="product-name" th:text="${product.name}"></div>
+								<div class="product-priceDel">
+									<div class="product-price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+' đ'"></div>
+									<del class="price-del" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+' đ'"></del>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:insert="~{home/footer}"></div>
+</body>
+<script src="/slick-1.8.1/slick/slick.min.js"></script>
+<script src="/js/detail-product/product.js"></script>
+</html>

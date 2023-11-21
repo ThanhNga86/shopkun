@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/dashboard/dashboard.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerDashboard">
+		<div class="dashboard">
+			<div class="overview">
+				<div class="row">
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="users">
+							<div class="heading"><i class="fa-solid fa-users"></i> KHÁCH HÀNG</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(totalUsers, 0, 'POINT', 0, 'POINT')}"></div>
+							<div class="action">
+								<div></div>
+								<a class="see" href="/admin/users"><i class="fa-solid fa-eye"></i> Xem</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="products">
+							<div class="heading"><i class="fa-solid fa-box-open"></i> SẢN PHẨM</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(totalProducts, 0, 'POINT', 0, 'POINT')}"></div>
+							<div class="action">
+								<a class="add" href="/admin/products/addProduct"><i class="fa-solid fa-plus"></i> Thêm mới</a>
+								<a class="see" href="/admin/products"><i class="fa-solid fa-eye"></i> Xem</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="orders">
+							<div class="heading"><i class="fa-solid fa-file-invoice"></i> ĐƠN HÀNG</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(totalOrders, 0, 'POINT', 0, 'POINT')}"></div>
+							<div class="action">
+								<div></div>
+								<a class="see" href="/admin/orders"><i class="fa-solid fa-eye"></i> Xem</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="reviews">
+							<div class="heading"><i class="fa-solid fa-star"></i> ĐÁNH GIÁ</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(totalOrders, 0, 'POINT', 0, 'POINT')}"></div>
+							<div class="action">
+								<div></div>
+								<a class="see" href="/admin/reviews"><i class="fa-solid fa-eye"></i> Xem</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="revenue-today">
+							<div class="heading"><i class="fa-solid fa-dollar-sign"></i> DOANH THU HÔM NAY</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(revenueToday, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+							<div class="action">
+								<div>ĐÃ BÁN </div>
+								<div th:text="${#numbers.formatDecimal(soldToday, 0, 'POINT', 0, 'POINT')}"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="revenue-week">
+							<div class="heading"><i class="fa-solid fa-dollar-sign"></i> DOANH THU TUẦN NÀY</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(revenueWeek, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+							<div class="action">
+								<div>ĐÃ BÁN </div>
+								<div th:text="${#numbers.formatDecimal(soldWeek, 0, 'POINT', 0, 'POINT')}"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="revenue-month">
+							<div class="heading"><i class="fa-solid fa-dollar-sign"></i> DOANH THU THÁNG NÀY</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(revenueMonth, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+							<div class="action">
+								<div>ĐÃ BÁN </div>
+								<div th:text="${#numbers.formatDecimal(soldMonth, 0, 'POINT', 0, 'POINT')}"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-3">
+						<div class="revenue-total">
+							<div class="heading"><i class="fa-solid fa-dollar-sign"></i> TỔNG DOANH THU</div>
+							<div class="statistics" th:text="${#numbers.formatDecimal(totalRevenue, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+							<div class="action">
+								<div>ĐÃ BÁN </div>
+								<div th:text="${#numbers.formatDecimal(totalSold, 0, 'POINT', 0, 'POINT')}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="selling-products" th:if="${totalSellingProducts!=0}">
+				<div class="title">TOP SẢN PHẨM BÁN CHẠY</div>
+				<div class="table-responsive">
+					<table class="table text-center">
+						<tr>
+							<th>Mã số</th>
+							<th>Tên sản phẩm</th>
+							<th>Hình ảnh</th>
+							<th>Giá</th>
+							<th>Khuyến mãi</th>
+							<th>Đã bán</th>
+							<th>Tổng doanh thu</th>
+						</tr>
+						
+						<tr th:each="orderD : ${sellingProducts}">
+							<td th:text="${orderD.id}"></td>
+							<td th:text="${orderD.product.name}"></td>
+							<td><img th:src="'/images/'+${orderD.product.images[0]}" width="80" height="80"></td>
+							<td>
+								<div class="price" th:text="${#numbers.formatDecimal(orderD.product.price * (100-orderD.product.discount)/100, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+								<del class="price-del" th:if="${orderD.product.promotion}" th:text="${#numbers.formatDecimal(orderD.product.price, 0, 'POINT', 0, 'POINT')}+'đ'"></del>
+							</td>
+							<td class="promotion">
+								<span th:if="${orderD.product.promotion}" th:text="${orderD.product.discount}+'%'"></span>
+							</td>
+							<td th:text="${#numbers.formatDecimal(orderD.sold, 0, 'POINT', 0, 'POINT')}"></td>
+							<td th:text="${#numbers.formatDecimal(orderD.price*(100-orderD.product.discount)/100 * orderD.sold, 0, 'POINT', 0, 'POINT')}+'đ'"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/dashboard/dashboard.js"></script>
+</html>

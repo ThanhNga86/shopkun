@@ -1,0 +1,333 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerOrders .orders {
+		margin: 60px 0 0 240px;
+		padding: 10px;
+	}
+
+	#paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+
+	#containerOrders .orders .show-describes .row .type {
+		margin-left: 240px;
+		width: 240px;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerOrders .orders {
+		margin: 60px 0 0 0;
+		padding: 10px;
+	}
+
+	#containerOrders .orders .nameFilter {
+		display: none;
+	}
+
+	#paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+
+	#containerOrders .orders .show-describes .row .type {
+		width: 130px;
+	}
+}
+
+@media (max-width: 576px) {
+	#paging .page>li {
+		display: block;
+		font-size: 12px;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+#containerOrders .orders {
+	background-color: white;
+	padding-bottom: 20px;
+}
+
+#containerOrders .orders label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerOrders .orders .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerOrders .orders .form-select:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerOrders .orders .btnFilter {
+	padding: 5px;
+	border-radius: 6px;
+	background-color: lightsteelblue;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+}
+
+#containerOrders .orders table tr {
+	font-size: medium;
+}
+
+#containerOrders .orders table tr>th {
+	white-space: nowrap;
+}
+
+#containerOrders .orders table .wait {
+	padding: 2px 4px;
+	border-radius: 5px;
+	color: white;
+	background-color: lightsteelblue;
+	user-select: none;
+	font-size: medium;
+	white-space: nowrap;
+}
+
+#containerOrders .orders table .confirmed {
+	padding: 2px 4px;
+	border-radius: 5px;
+	color: white;
+	background-color: lightsalmon;
+	user-select: none;
+	font-size: medium;
+	white-space: nowrap;
+}
+
+#containerOrders .orders table .delivering {
+	padding: 2px 4px;
+	border-radius: 5px;
+	color: white;
+	background-color: lightskyblue;
+	user-select: none;
+	font-size: medium;
+	white-space: nowrap;
+}
+
+#containerOrders .orders table .delivered {
+	padding: 2px 4px;
+	border-radius: 5px;
+	color: white;
+	background-color: lightgreen;
+	user-select: none;
+	font-size: medium;
+	white-space: nowrap;
+}
+
+#containerOrders .orders table .cancelled {
+	padding: 2px 4px;
+	border-radius: 5px;
+	color: white;
+	background-color: lightcoral;
+	user-select: none;
+	font-size: medium;
+	white-space: nowrap;
+}
+
+#containerOrders .orders .viewDescribe {
+	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+}
+
+#containerOrders .orders .createDate {
+	white-space: nowrap;
+}
+
+#containerOrders .orders .action {
+	display: grid;
+	grid-template-columns: auto auto;
+	white-space: nowrap;
+	font-size: medium;
+}
+
+#containerOrders .orders .action .edit {
+	margin: 2px;
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: deepskyblue;
+	color: white;
+	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrders .orders .action .remove {
+	margin: 2px;
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: lightcoral;
+	white-space: nowrap;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrders .orders .action .see {
+	margin: 2px;
+	text-decoration: none;
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: lightseagreen;
+	white-space: nowrap;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrders .orders .action .accept {
+	margin: 2px;
+	text-decoration: none;
+	padding: 2px 4px;
+	border-radius: 6px;
+	background-color: lightsalmon;
+	white-space: nowrap;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrders .orders .action .modal-body {
+	text-align: left;
+}
+
+#containerOrders .orders .modal {
+	--bs-modal-width: 60%;
+}
+
+#containerOrders .orders .message {
+	font-size: large;
+	color: red;
+}
+
+#containerOrders .orders .resultQ {
+	text-align: center;
+	font-size: larger;
+	color: lightsalmon;
+	margin: 10px 0;
+}
+
+#containerOrders .orders .formFilter {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+#containerOrders .orders .show-orderDetail {
+	display: none;
+	position: fixed;
+	user-select: none;
+	cursor: pointer;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 99999999;
+}
+
+#containerOrders .orders .fa-x:hover {
+	opacity: 0.8;
+}
+
+#containerOrders .orders .show-orderDetails {
+	display: none;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99999999;
+	overflow: auto;
+}
+
+#containerOrders .orders .hidden-orderDetail {
+	color: white;
+	font-size: 28px;
+	cursor: pointer;
+	float: right;
+	margin: 15px 20px;
+}
+
+#containerOrders .orders .show-orderDetails .row {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+}
+
+#containerOrders .orders .show-orderDetails .row .price {
+	white-space: nowrap;
+}
+
+#containerOrders .orders .show-orderDetails .row .price-del {
+	white-space: nowrap;
+	font-size: medium;
+	color: darkgray;
+}
+
+#containerOrders .orders .show-orderDetails .row .totalPay {
+	color: white;
+	font-size: large;
+	text-align: right;
+}
+
+#containerOrders .orders .show-orderDetails .row .table {
+	margin-bottom: 10px;
+	cursor: default;
+	--bs-table-color: white;
+	--bs-table-bg: transparent;
+}
+
+
+#paging {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+}
+
+#paging .page {
+	text-decoration: none;
+	color: white;
+}
+
+#paging .page:hover {
+	opacity: 0.8;
+}
+
+.lds-dual-ring {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+}
+
+.lds-dual-ring:after {
+	content: " ";
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin: 8px;
+	border-radius: 50%;
+	border: 6px solid lightskyblue;
+	border-color: lightskyblue transparent lightskyblue transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}

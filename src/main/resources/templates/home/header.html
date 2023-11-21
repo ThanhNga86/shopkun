@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Shopkun - mua sắm trực tuyến, mua sắm online giá tốt</title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<script src="/js/jquery/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="/bootstrap-5.3.1-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/home/header.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg py-2">
+		<div class="container px-1">
+			<div class="col-lg-3 d-flex justify-content-between align-items-center" id="md-mobile">
+				<div class="d-flex align-items-center">
+					<div class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="p-1 text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+							<i class="fa-solid fa-bars"></i>
+						</span>
+						
+						<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+						  <div class="offcanvas-header">
+						    <a href="/" class="offcanvas-title w-100 text-center" id="offcanvasWithBothOptionsLabel">
+								<img src="/images/logo.png" alt="home">
+							</a>
+						    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						  </div>
+						  
+						  <div class="offcanvas-body p-0">
+						    <div class="list-group">
+								<a class="list-group-item list-group-item-action" th:each="category : ${categories}" th:href="'/category?id=' + ${category.id} + '&name=' + ${category.name}">
+									<img th:src="'/images/'+${category.image}" width="30px" height="30px">
+									<span th:text="${category.name}"></span>
+								</a>
+							</div>
+						  </div>
+						</div>
+				    </div>
+				    
+					<a class="navbar-nav" href="/"><img src="/images/logo.png" alt="home"></a>
+				</div>
+				
+				<div id="md-formSearch">
+			      	<form action="/search" method="get" class="input-group">
+					  <input type="search" class="form-control inpSearch" name="q" th:value="${vlQuery}" placeholder="Tìm kiếm sản phẩm trên shopkun" autocomplete="off" aria-describedby="basic-addon2">
+					  <button class="input-group-text btnSearch" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</form>
+					
+					<ul class="md-search-result">
+						<div class="md-search-history" th:if="${totalHistory!=0}">
+							<div class="title"><i class="fa-solid fa-clock-rotate-left"></i> Tìm kiếm gần đây</div>
+							<a class="rs" th:href="'/search?q='+${history}" th:each="history : ${searchHistory}">
+							   <li><span th:text="${history}"></span> <i class="removeH fa-solid fa-x"></i></li>
+						    </a>
+						</div>
+						
+						<div class="md-searchRS"></div>
+				    </ul>
+				</div>
+				
+				<div id="md-user-cart">
+					<a href="/shopping-cart" class="shopping-cart">
+						<span class="position-relative me-1" id="cart">
+						  <i class="fa-solid fa-cart-shopping"></i>
+						  <span th:if="${session.totalCart==null}" class="sizeCart position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						    0
+						  </span>
+						  <span th:if="${session.totalCart!=null}" th:text="${session.totalCart}" class="sizeCart position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						  </span>
+						</span>
+						<span class="cart-name">giỏ hàng</span>
+					</a>
+					
+					<div class="account mx-1">
+						<a href="/account/login" class="login" sec:authorize="!isAuthenticated()">
+							<i class="fa-solid fa-user"></i> <span class="username">Đăng nhập</span>
+						</a>
+						
+						<div class="btn-group" sec:authorize="isAuthenticated()">
+						  <div class="dropdown-toggle user" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    <i class="fa-solid fa-user" style="color: white;"></i><span class="username" sec:authentication="name"></span>
+						  </div>
+						
+						  <ul class="dropdown-menu dropdown-menu-end p-0 mt-2">
+						    <li><a class="dropdown-item" href="/admin" sec:authorize="hasRole('ADMIN')">Admin</a></li>
+						    <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
+						    <li><a class="dropdown-item" href="/account/update">Cập nhật tài khoản</a></li>
+						    <li th:if="${session.auth==null}"><a class="dropdown-item" href="/account/change-password">Đổi mật khẩu</a></li>
+						    <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
+						  </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6" id="formSearch">
+		      	<form action="/search" method="get" class="input-group">
+				  <input type="search" class="form-control inpSearch" name="q" th:value="${vlQuery}" placeholder="Tìm kiếm sản phẩm trên shopkun" autocomplete="off" aria-describedby="basic-addon2">
+				  <button class="input-group-text btnSearch" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+				</form>
+				
+				<ul class="search-result">
+					<div class="search-history" th:if="${totalHistory!=0}">
+						<div class="title"><i class="fa-solid fa-clock-rotate-left"></i> Tìm kiếm gần đây</div>
+						<a class="rs" th:href="'/search?q='+${history}" th:each="history : ${searchHistory}">
+						   <li><span th:text="${history}"></span> <i class="removeH fa-solid fa-x"></i></li>
+					    </a>
+					</div>
+					
+					<div class="searchRS"></div>
+			    </ul>
+			</div>
+			
+			<div class="col-xl-4 col-lg-4" id="user-cart">
+				<div class="d-flex justify-content-center align-items-center">
+					<a href="/shopping-cart" class="shopping-cart">
+						<span class="position-relative me-1" id="cart">
+						  <i class="fa-solid fa-cart-shopping"></i>
+						  <span th:if="${session.totalCart==null}" class="sizeCart position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						    0
+						  </span>
+						  <span th:if="${session.totalCart!=null}" th:text="${session.totalCart}" class="sizeCart position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						  </span>
+						</span>
+						<span class="cart-name">giỏ hàng</span>
+					</a>
+					
+					<div class="account mx-2">
+						<a href="/account/login" class="login" sec:authorize="!isAuthenticated()">
+							<i class="fa-solid fa-user"></i> <span class="username">Đăng nhập</span>
+						</a>
+						
+						<div class="btn-group" sec:authorize="isAuthenticated()">
+						  <div class="dropdown-toggle user" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    <i class="fa-solid fa-user" style="color: white;"></i><span class="username" sec:authentication="name"></span>
+						  </div>
+						
+						  <ul class="dropdown-menu dropdown-menu-end p-0 mt-2">
+						    <li><a class="dropdown-item" href="/admin" sec:authorize="hasRole('ADMIN')">Admin</a></li>
+						    <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
+						    <li><a class="dropdown-item" href="/account/update">Cập nhật tài khoản</a></li>
+						    <li th:if="${session.auth==null}"><a class="dropdown-item" href="/account/change-password">Đổi mật khẩu</a></li>
+						    <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
+						  </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="loading">
+		<div class="spinner">
+			<div class="lds-roller">
+				<div></div><div></div><div></div><div>
+				</div><div></div><div></div><div>
+				</div><div></div></div>
+		</div>
+	</div>
+</body>
+<script src="/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/message/message.js"></script>
+<script src="/js/home/header.js"></script>
+</html>

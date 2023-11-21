@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerDashboard .dashboard {
+		margin: 60px 0 0 240px;
+	}
+
+	#paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerDashboard .dashboard {
+		margin: 60px 0 0 0;
+	}
+
+	#paging .page>li {
+		display: block;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+@media (max-width: 576px) {
+	#paging .page>li {
+		display: block;
+		font-size: 12px;
+		padding: 5px 12px;
+		background-color: deepskyblue;
+	}
+}
+
+#containerDashboard .dashboard label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerDashboard .dashboard .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerDashboard .dashboard .form-select:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerDashboard .dashboard table tr {
+	font-size: medium;
+}
+
+#containerDashboard .dashboard table tr>th {
+	white-space: nowrap;
+}
+
+#containerDashboard .dashboard .price-del {
+	font-size: medium;
+	color: darkgray;
+}
+
+#containerDashboard .dashboard .overview {
+	background-color: white;
+	padding: 20px;
+}
+
+#containerDashboard .dashboard .overview .users {
+	background-color: lightskyblue;
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .products {
+	background-color: lightcoral;
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .orders {
+	background-color: rgb(245, 209, 99);
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .reviews {
+	background-color: rgb(99, 245, 189);
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .revenue-today {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background-color: rgb(248, 167, 121);
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .revenue-week {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background-color: lightsteelblue;
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .revenue-month {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background-color: rgb(121, 199, 248);
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .revenue-total {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background-color: rgb(248, 218, 121);
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+#containerDashboard .dashboard .overview .heading {
+	white-space: nowrap;
+	padding: 10px;
+	font-size: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: solid 1px white;
+}
+
+#containerDashboard .dashboard .overview .action {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+#containerDashboard .dashboard .overview .heading>i {
+	font-size: 20px;
+}
+
+#containerDashboard .dashboard .overview .statistics {
+	font-size: 20px;
+	text-align: center;
+	padding: 10px;
+	border-bottom: solid 1px white;
+}
+
+#containerDashboard .dashboard .overview .action .add {
+	text-decoration: none;
+	color: white;
+	background-color: lightsalmon;
+	padding: 2px 4px;
+	border-radius: 5px;
+}
+
+#containerDashboard .dashboard .overview .action .see {
+	text-decoration: none;
+	color: white;
+	background-color: lightsalmon;
+	padding: 2px 4px;
+	border-radius: 5px;
+}
+
+#containerDashboard .dashboard .selling-products {
+	margin-top: 10px;
+	background-color: white;
+	padding: 10px;
+}
+
+#containerDashboard .dashboard .selling-products .title {
+	font-size: larger;
+	font-weight: 500;
+}
+
+.lds-dual-ring {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+}
+
+.lds-dual-ring:after {
+	content: " ";
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin: 8px;
+	border-radius: 50%;
+	border: 6px solid lightskyblue;
+	border-color: lightskyblue transparent lightskyblue transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}

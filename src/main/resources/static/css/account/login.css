@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerLogin {
+		padding-top: 80px;
+	}
+
+	#containerLogin .login .formLogin {
+		padding: 40px;
+		background-color: white;
+		border-radius: 10px;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerLogin {
+		padding-top: 80px;
+	}
+
+	#containerLogin .login .formLogin {
+		padding: 40px;
+		background-color: white;
+		border-radius: 10px;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerLogin {
+		padding-top: 110px;
+	}
+
+	#containerLogin .login .formLogin {
+		padding: 15px;
+		background-color: white;
+		border-radius: 10px;
+	}
+}
+
+#containerLogin .login {
+	display: flex;
+	justify-content: center;
+}
+
+#containerLogin .login .formLogin .logo {
+	text-align: center;
+}
+
+#containerLogin .login .formLogin .title {
+	font-size: 24px;
+	font-weight: 500;
+	margin: 20px 0;
+}
+
+#containerLogin .login .formLogin label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerLogin .login .formLogin .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerLogin .login .formLogin .fp {
+	margin: 10px 0;
+}
+
+#containerLogin .login .formLogin .fp>a {
+	text-decoration: none;
+	color: coral;
+	font-size: large;
+	font-weight: 500;
+}
+
+#containerLogin .login .formLogin .fp>a:hover{
+	opacity: 0.8;
+}
+
+#containerLogin .login .formLogin .message {
+	color: red;
+	font-size: large;
+}
+
+#containerLogin .login .formLogin .btnLogin {
+	padding: 10px 0;
+	width: 100%;
+	background-color: deepskyblue;
+	border: none;
+	color: white;
+	border-radius: 10px;
+}
+
+#containerLogin .login .formLogin .btnLogin:hover{
+	opacity: 0.8;
+}
+
+#containerLogin .login .formLogin .other-login {
+	margin: 20px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#containerLogin .login .formLogin .other-login>hr {
+	width: 100%;
+	margin: 0 3px;
+}
+
+#containerLogin .login .formLogin .loginOther {
+	text-decoration: none;
+	margin-top: 6px;
+	padding: 8px;
+	width: 100%;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid 1px gray;
+	font-size: large;
+	color: black;
+}
+
+#containerLogin .login .formLogin .loginOther>img {
+	margin-right: 5px;
+}
+
+#containerLogin .login .formLogin .register {
+	margin-top: 20px;
+	text-align: center;
+	font-size: large;
+}
+
+#containerLogin .login .formLogin .register>a {
+	text-decoration: none;
+	color: deepskyblue;
+}
+
+#containerLogin .login .formLogin .register>a:hover{
+	opacity: 0.8;
+}

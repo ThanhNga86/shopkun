@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/orders/orders.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerOrders">
+		<div class="orders">
+			<form class="formFilter">
+				<input type="search" name="search" class="searchO form-control w-75" placeholder="Tìm kiếm theo mã số, họ và tên, địa chỉ, số điện thoại" th:value="${vlSearch}">
+				
+				<div class="btn-group mx-2">
+				  <span class="btnFilter dropdown-toggle" th:if="${#strings.isEmpty(filter)}" data-bs-toggle="dropdown" aria-expanded="false">
+				  		<i class="fa-solid fa-filter"></i> <span class="nameFilter">Lọc đơn hàng theo</span>
+				  </span>
+				  <span class="btnFilter dropdown-toggle" th:data-filter="${filter}" th:if="${not #strings.isEmpty(filter)}" data-bs-toggle="dropdown" aria-expanded="false">
+				  		<i class="fa-solid fa-filter"></i> <span class="nameFilter" th:text="${nameFilter}"></span>
+				  </span>
+				  <ul class="dropdown-menu dropdown-menu-end">
+				    <li><a class="dropdown-item" th:if="${not #strings.isEmpty(filter)}" href="/admin/orders">Bỏ lọc đơn hàng</a></li>
+				    <li><a class="dropdown-item" href="/admin/orders?filter=wait">Chờ xác nhận</a></li>
+				    <li><a class="dropdown-item" href="/admin/orders?filter=confirmed">Đã xác nhận</a></li>
+				    <li><a class="dropdown-item" href="/admin/orders?filter=delivering">Đang giao</a></li>
+				    <li><a class="dropdown-item" href="/admin/orders?filter=delivered">Đã giao</a></li>
+				    <li><a class="dropdown-item" href="/admin/orders?filter=cancelled">Đã hủy</a></li>
+				  </ul>
+				</div>
+			</form>
+			
+			<div class="tableOrder table-responsive">
+				<table class="table table-bordered mt-2 text-center">
+					<tr>
+						<th>Mã số</th>
+						<th>Họ và tên</th>
+						<th>Địa chỉ</th>
+						<th>Số điện thoại</th>
+						<th>Ghi chú</th>
+						<th>Ngày tạo</th>
+						<th>Trạng thái</th>
+						<th>Hành động</th>
+					</tr>
+					
+					<tr th:if="${total!=0}" th:each="order : ${orders}">
+						<td class="orderId" th:text="${order.id}"></td>
+						<td class="fullName" th:text="${order.fullName}"></td>
+						<td class="address" th:text="${order.address}"></td>
+						<td class="phone" th:text="${order.phone}"></td>
+						<td class="note" th:text="${order.note}"></td>
+						<td class="createDate" th:text="${#dates.format(order.createDate, 'dd-MM-yyyy mm:HH')+'h'}"></td>
+						<td class="status">
+							<span class="wait" th:if="${order.status=='Chờ xác nhận'}">Chờ xác nhận</span>
+							<span class="confirmed" th:if="${order.status=='Đã xác nhận'}">Đã xác nhận</span>
+							<span class="delivering" th:if="${order.status=='Đang giao'}">Đang giao</span>
+							<span class="delivered" th:if="${order.status=='Đã giao'}">Đã giao</span>
+							<span class="cancelled" th:if="${order.status=='Đã hủy'}">Đã hủy</span>
+						</td>
+						<td class="action">
+							<span class="edit" th:id="${order.id}" data-bs-toggle="modal" th:data-bs-target="'#editOrder_'+${order.id}"><i class="fa-solid fa-pen"></i> Sửa</span>
+							<div class="modal fade" th:id="'editOrder_'+${order.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật đơn hàng</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="data-save modal-body">
+							        <form>
+									    <div class="form-group">
+											<label>Họ và tên</label>
+											<input type="text" class="inpFullName form-control" th:value="${order.fullName}">
+											<div class="message msFullname"></div>
+										</div>
+										
+									    <div class="form-group">
+											<label>Địa chỉ</label>
+											<input type="text" class="inpAddress form-control" th:value="${order.address}">
+											<div class="message msAddress"></div>
+										</div>
+										
+									    <div class="form-group">
+											<label>Số điện thoại</label>
+											<input type="number" class="inpPhone form-control" th:value="${order.phone}">
+											<div class="message msPhone"></div>
+										</div>
+										
+									    <div class="form-group">
+											<label>Ghi chú</label>
+											<textarea rows="3" type="text" class="inpNote form-control" th:inline="text">[[${order.note}]]</textarea>
+										</div>
+										
+										<div class="form-group">
+											<label>Trạng thái</label>
+											<select class="inpStatus form-select">
+												<option th:if="${order.status=='Chờ xác nhận'}" selected value="Chờ xác nhận">Chờ xác nhận</option>
+												<option th:if="${order.status!='Chờ xác nhận'}" value="Chờ xác nhận">Chờ xác nhận</option>
+												<option th:if="${order.status=='Đã xác nhận'}" selected value="Đã xác nhận">Đã xác nhận</option>
+												<option th:if="${order.status!='Đã xác nhận'}" value="Đã xác nhận">Đã xác nhận</option>
+												<option th:if="${order.status=='Đang giao'}" selected value="Đang giao">Đang giao</option>
+												<option th:if="${order.status!='Đang giao'}" value="Đang giao">Đang giao</option>
+												<option th:if="${order.status=='Đã giao'}" selected value="Đã giao">Đã giao</option>
+												<option th:if="${order.status!='Đã giao'}" value="Đã giao">Đã giao</option>
+												<option th:if="${order.status=='Đã hủy'}" selected value="Đã hủy">Đã hủy</option>
+												<option th:if="${order.status!='Đã hủy'}" value="Đã hủy">Đã hủy</option>
+											</select>
+											<div class="message msStatus"></div>
+										</div>
+									</form>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary btnReset" data-bs-dismiss="modal">Hủy</button>
+							        <button type="button" th:id="${order.id}" class="btn btn-primary btnSave">Lưu thay đổi</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							
+							<span class="remove" th:id="${order.id}"><i class="fa-solid fa-trash-can"></i> Xóa</span>
+							<span class="accept" th:if="${order.status!='Đã giao' && order.status!='Đã hủy'}"><i class="fa-regular fa-circle-check"></i> Duyệt</span>
+							<span class="see"><i class="fa-solid fa-eye"></i> Xem</span>
+							
+							<!--Show chi tiết đơn hàng-->
+						    <div class="show-orderDetail">
+								<i class="hidden-orderDetail fa-solid fa-x"></i>
+							</div>
+						    <div class="show-orderDetails">
+								<div class="row">
+									<div class="table-responsive">
+										<table class="table table-bordered">
+											<tr>
+												<th>Mã số</th>
+												<th>Mã sản phẩm</th>
+												<th>Tên sản phẩm</th>
+												<th>Hình ảnh</th>
+												<th>Giá</th>
+												<th>Khuyến mãi</th>
+												<th>Số lượng</th>
+												<th>Thành tiền</th>
+											</tr>
+											
+											<tr th:if="${orderD.order.id==order.id}" th:each="orderD : ${orderDetails}">
+												<td th:text="${orderD.id}"></td>
+												<td th:text="${orderD.product.id}"></td>
+												<td th:text="${orderD.product.name}"></td>
+												<td>
+													<img th:src="'/images/'+${orderD.product.images[0]}" width="80" height="80">
+												</td>
+												<td>
+													<div class="price" th:text="${#numbers.formatDecimal(orderD.product.price * (100-orderD.product.discount)/100, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+													<del class="price-del" th:if="${orderD.product.promotion}" th:text="${#numbers.formatDecimal(orderD.product.price, 0, 'POINT', 0, 'POINT')}+'đ'"></del>
+												</td>
+												<td>
+													<span th:if="${orderD.product.promotion}" th:text="${orderD.product.discount}+'%'"></span>
+												</td>
+												<td th:text="${orderD.quantity}"></td>
+												<td class="totalOD" th:text="${#numbers.formatDecimal(orderD.product.price * (100-orderD.product.discount)/100*orderD.quantity, 0, 'POINT', 0, 'POINT')}+'đ'"></td>
+											</tr>
+										</table>
+									</div>
+									<div class="totalPay"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<ul id="paging" th:if="${total > 10}">
+				<a class="page" th:href="'/admin/orders?'+${pageFilter}+'page=1'"><li>Đầu</li></a>
+				<span th:each="i : ${#numbers.sequence(1, totalPage)}">
+					<span th:if="${i <= 5 && pageNumber <= 2}">
+						<span th:if="${i==pageNumber}">
+							<a class="page" th:href="'/admin/orders?'+${pageFilter}+'page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+						</span>
+						<span th:if="${i!=pageNumber}">
+							<a class="page" th:href="'/admin/orders?'+${pageFilter}+'page='+${i}"><li th:text="${i}"></li></a>
+						</span>
+					</span>
+					
+					<span th:if="${pageNumber > 2}">
+						<span th:if="${i >= pageNumber-2 && i <= pageNumber+2}">
+							<span th:if="${i==pageNumber}">
+								<a class="page" th:href="'/admin/orders?'+${pageFilter}+'page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+							</span>
+							<span th:if="${i!=pageNumber}">
+								<a class="page" th:href="'/admin/orders?'+${pageFilter}+'page='+${i}"><li th:text="${i}"></li></a>
+							</span>
+						</span>
+					</span>
+				</span>
+				<a class="page" th:href="'/admin/orders?'+${pageFilter}+'page='+${totalPage}"><li>Cuối</li></a>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/orders/orders.js"></script>
+</html>

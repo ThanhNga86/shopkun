@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/categories/categories.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerCategories">
+		<div class="categories">
+			<form>
+				<input type="search" name="search" class="searchC form-control" placeholder="Tìm kiếm theo mã hoặc tên danh mục" th:value="${vlSearch}">
+			</form>
+			
+			<div class="tableC table-responsive">
+				<table class="table table-bordered mt-2 text-center">
+					<tr>
+						<th>Mã số</th>
+						<th>Tên danh mục</th>
+						<th>Hình ảnh</th>
+						<th>Hành động</th>
+					</tr>
+					
+					<tr th:each="category : ${categories}">
+						<td class="id" th:text="${category.id}"></td>
+						<td class="name" th:text="${category.name}"></td>
+						<td class="image">
+							<image th:src="'/images/'+${category.image}" width="60" height="60"></image>
+						</td>
+						<td class="action">
+							<span class="edit" th:id="${category.id}" data-bs-toggle="modal" data-bs-target="#editCategory"><i class="fa-solid fa-pen"></i> Sửa</span>
+							
+							<div class="modal fade" id="editCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật danh mục</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body">
+							        <form action="/admin/categories/addCategory" method="post" enctype="multipart/form-data">
+									    <div class="form-group">
+											  <label>Tên danh mục</label>
+											  <input type="text" name="name" id="nameC" class="inp form-control">
+											  <div class="message" id="msName"></div>
+									  	</div>
+									  	  
+									  	<div class="form-group">
+											<label>Ảnh danh mục</label>
+											<div class="ctnImageC">
+												<i class="fa-solid fa-x removeImageC"></i>
+												<img class="imageC" width="100%" height="100%">
+											</div>
+											<input type="file" class="fileC" name="image" style="display: none;">
+											<div class="message" id="msImage"></div>
+										</div>
+									</form>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary btnReset" data-bs-dismiss="modal">Hủy</button>
+							        <button type="button" class="btn btn-primary btnSave">Lưu thay đổi</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							<span class="remove" th:id="${category.id}"><i class="fa-solid fa-trash-can"></i> Xóa</span>
+							<a class="see" th:href="'/category?id='+${category.id}+'&name='+${category.name}"><i class="fa-solid fa-eye"></i> Xem</a>
+					    </td>
+					</tr>
+				</table>
+			</div>
+			<ul id="paging" th:if="${total > 10}">
+				<a class="page" href="/admin/categories?page=1"><li>Đầu</li></a>
+				<span th:each="i : ${#numbers.sequence(1, totalPage)}">
+					<span th:if="${i <= 5 && pageNumber <= 2}">
+						<span th:if="${i==pageNumber}">
+							<a class="page" th:href="'/admin/categories?page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+						</span>
+						<span th:if="${i!=pageNumber}">
+							<a class="page" th:href="'/admin/categories?page='+${i}"><li th:text="${i}"></li></a>
+						</span>
+					</span>
+					
+					<span th:if="${pageNumber > 2}">
+						<span th:if="${i >= pageNumber-2 && i <= pageNumber+2}">
+							<span th:if="${i==pageNumber}">
+								<a class="page" th:href="'/admin/categories?page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+							</span>
+							<span th:if="${i!=pageNumber}">
+								<a class="page" th:href="'/admin/categories?page='+${i}"><li th:text="${i}"></li></a>
+							</span>
+						</span>
+					</span>
+				</span>
+				<a class="page" th:href="'/admin/categories?page='+${totalPage}"><li>Cuối</li></a>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/categories/categories.js"></script>
+</html>

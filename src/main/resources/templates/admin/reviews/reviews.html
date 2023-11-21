@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/reviews/reviews.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerReviews">
+		<div class="reviews">
+			<form class="formFilter">
+				<input type="search" name="search" class="searchR form-control w-75" placeholder="Tìm kiếm theo mã số, bình luận, mã sản phẩm, tên người bình luận" th:value="${vlSearch}">
+				
+				<div class="btn-group mx-2">
+				  <span class="btnFilter dropdown-toggle" th:if="${#strings.isEmpty(filter)}" data-bs-toggle="dropdown" aria-expanded="false">
+				  		<i class="fa-solid fa-filter"></i> <span class="nameFilter">Lọc đánh giá theo</span>
+				  </span>
+				  <span class="btnFilter dropdown-toggle" th:data-filter="${filter}" th:if="${not #strings.isEmpty(filter)}" data-bs-toggle="dropdown" aria-expanded="false">
+				  		<i class="fa-solid fa-filter"></i> <span class="nameFilter" th:text="${nameFilter}"></span>
+				  </span>
+				  <ul class="dropdown-menu dropdown-menu-end">
+				    <li><a class="dropdown-item" th:if="${not #strings.isEmpty(filter)}" href="/admin/reviews">Bỏ lọc đánh giá</a></li>
+				    <li><a class="dropdown-item" href="/admin/reviews?filter=5star">5 sao</a></li>
+				    <li><a class="dropdown-item" href="/admin/reviews?filter=4star">4 sao</a></li>
+				    <li><a class="dropdown-item" href="/admin/reviews?filter=3star">3 sao</a></li>
+				    <li><a class="dropdown-item" href="/admin/reviews?filter=2star">2 sao</a></li>
+				    <li><a class="dropdown-item" href="/admin/reviews?filter=1star">1 sao</a></li>
+				  </ul>
+				</div>
+			</form>
+			
+			<div class="tableReview table-responsive">
+				<table class="table table-bordered mt-2 text-center">
+					<tr>
+						<th>Mã số</th>
+						<th>Mã sản phẩm</th>
+						<th>Người bình luận</th>
+						<th>Bình luận</th>
+						<th>Hình ảnh</th>
+						<th>Điểm đánh giá</th>
+						<th>Ngày bình luận</th>
+						<th>Hành động</th>
+					</tr>
+					
+					<tr th:if="${total!=0}" th:each="review : ${reviews}">
+						<td class="reviewId" th:text="${review.id}"></td>
+						<td class="productId" th:text="${review.product.id}"></td>
+						<td class="accountId" th:text="${review.account.fullName}"></td>
+						<td class="comment" th:text="${review.comment}"></td>
+						<td class="imageCmt">
+							<div class="viewDetailImage" th:if="${review.images!=null}">
+								<image th:src="'/images/'+${review.images[0]}" width="100%" height="100%"></image>
+								<div class="viewImage" th:text="'Xem '+${review.images.size}+' hình'"></div>
+							</div>
+						</td>
+						<td class="reviewPoint" th:text="${review.rate.intValue()}+' sao'"></td>
+						<td class="createDate" th:text="${#dates.format(review.createDate, 'dd-MM-yyyy mm:HH')}+'h'"></td>
+						<td class="action">
+							<span class="remove" th:id="${review.id}"><i class="fa-solid fa-trash-can"></i> Xóa</span>
+							<span class="see">
+								<i class="fa-solid fa-eye"></i> Xem
+							</span>
+							
+							<!--Show chi tiết đánh giá-->
+						    <div class="show-reviewDetail">
+								<i class="hidden-reviewDetail fa-solid fa-x"></i>
+							</div>
+						    <div class="show-reviewDetails">
+								<div class="row">
+									<div class="table-responsive">
+										<table class="table table-bordered">
+											<tr>
+												<th>Mã số</th>
+												<th>Người trả lời</th>
+												<th>Bình luận</th>
+												<th>Hình ảnh</th>
+												<th>Trả lời</th>
+												<th>Ngày bình luận</th>
+												<th>Hành động</th>
+											</tr>
+											
+											<tr th:if="${reviewFB.review.id==review.id}" th:each="reviewFB : ${reviewFBs}">
+												<td th:text="${reviewFB.id}"></td>
+												<td th:text="${reviewFB.account.fullName}"></td>
+												<td class="cmtFB" th:text="${reviewFB.comment}"></td>
+												<td class="rvFBImages">
+													<img th:src="'/images/'+${image}" th:each="image : ${reviewFB.images}" width="80" height="80">
+												</td>
+												<td th:text="${reviewFB.respondent}"></td>
+												<td class="createDate" th:text="${#dates.format(reviewFB.createDate, 'dd-MM-yyyy mm:HH')+'h'}"></td>
+												<td>
+													<span class="removeFB" th:id="${reviewFB.id}"><i class="fa-solid fa-trash-can"></i> Xóa</span>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</td>
+						
+						<!--Show nhiều hình ảnh-->
+					    <div class="show-detailImage">
+							<i class="hidden-detailImage fa-solid fa-x"></i>
+						</div>
+					    <div class="show-images" th:if="${review.images!=null}">
+							<div class="row">
+								<div class="col-xl-7 col-lg-8 col-md-9 col-sm-10" th:each="image : ${review.images}">
+									<img class="imagesP" th:src="'/images/'+${image}" width="100%" height="100%">
+								</div>
+							</div>
+						</div>
+					</tr>
+				</table>
+			</div>
+			
+			<ul id="paging" th:if="${total > 10}">
+				<a class="page" th:href="'/admin/reviews?'+${pageFilter}+'page=1'"><li>Đầu</li></a>
+				<span th:each="i : ${#numbers.sequence(1, totalPage)}">
+					<span th:if="${i <= 5 && pageNumber <= 2}">
+						<span th:if="${i==pageNumber}">
+							<a class="page" th:href="'/admin/reviews?'+${pageFilter}+'page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+						</span>
+						<span th:if="${i!=pageNumber}">
+							<a class="page" th:href="'/admin/reviews?'+${pageFilter}+'page='+${i}"><li th:text="${i}"></li></a>
+						</span>
+					</span>
+					
+					<span th:if="${pageNumber > 2}">
+						<span th:if="${i >= pageNumber-2 && i <= pageNumber+2}">
+							<span th:if="${i==pageNumber}">
+								<a class="page" th:href="'/admin/reviews?'+${pageFilter}+'page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+							</span>
+							<span th:if="${i!=pageNumber}">
+								<a class="page" th:href="'/admin/reviews?'+${pageFilter}+'page='+${i}"><li th:text="${i}"></li></a>
+							</span>
+						</span>
+					</span>
+				</span>
+				<a class="page" th:href="'/admin/reviews?'+${pageFilter}+'page='+${totalPage}"><li>Cuối</li></a>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/reviews/reviews.js"></script>
+</html>

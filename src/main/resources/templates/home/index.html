@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopkun - mua sắm trực tuyến, mua sắm online giá tốt</title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<link rel="stylesheet" href="/slick-1.8.1/slick/slick.css">
+<link rel="stylesheet" href="/slick-1.8.1/slick/slick-theme.css">
+<link rel="stylesheet" href="/css/home/index.css">
+</head>
+<body>
+	<div th:insert="~{home/header}"></div>
+	
+	<div class="container" id="containerHome">
+		<div id="categoryAndSlides">
+			<div class="row">
+				<div class="col-lg-3 category">
+					<div class="category-title"><i class="fa-sharp fa-solid fa-bars"></i> Danh mục sản phẩm</div>
+					<ul>
+						<a class="cg" th:each="category : ${categories}" th:href="'/category?id=' + ${category.id} + '&name=' + ${category.name}">
+							<img th:src="'/images/'+${category.image}" width="30px" height="30px">
+							<span th:text="${category.name}"></span>
+						</a>
+					</ul>
+				</div>
+				
+				<div class="col-lg-9 p-0">
+					<div class="slide-first">
+						<img src="/images/slide_quan-ao.png" width="100%" height="100%">
+					</div>
+					<div class="containerSlide">
+						<div class="slides">
+							<div class="slide">
+								<img src="/images/slide_quan-ao.png" width="100%" height="100%">
+							</div>
+							<div class="slide">
+								<img src="/images/slide_laptop.png" width="100%" height="100%">
+							</div>
+							<div class="slide">
+								<img src="/images/slide-tv.jpg" width="100%" height="100%">
+							</div>
+							<div class="slide">
+								<img src="/images/slide_may-anh.jpg" width="100%" height="100%">
+							</div>
+							<div class="slide">
+								<img src="/images/slide_dong-ho.jpg" width="100%" height="100%">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="category-featured">
+			<span><i class="fa-solid fa-bolt"></i> Danh mục nổi bật</span>
+			<div class="row">
+				<div class="item col-xl-2 col-lg-2 col-md-2 col-sm-4 my-1" th:each="category : ${categoryFeatured}">
+					<a th:href="'/category?id='+${category.id}+'&name='+ ${category.name}">
+						<img th:src="'/images/'+ ${category.image}" width="60%" height="60px">
+						<div class="name" th:text="${category.name}"></div>
+					</a>
+				</div>
+			</div>
+			<div class="viewMore">
+				<span class="btnViewMore" th:if="${totalCF > 6}">Xem thêm chuyên mục <i class="fa-solid fa-angle-down"></i></span>
+			</div>
+		</div>
+		
+		<div class="promotion-products">
+			<span><i class="fa-solid fa-fire"></i> Sản phẩm khuyến mãi</span>
+			<div class="row">
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 my-2 p-1" th:if="${product.quantity!=0}" th:each="product : ${productsPromotion}">
+					<div class="product border">
+						<div class="promotion" th:text="'-'+${product.discount}+'%'"></div>
+						<a th:href="'product?id='+${product.id}+'&name='+${product.name}">
+							<img th:src="'/images/'+${product.images[0]}" width="100%" height="200px">
+							<div class="product-name" th:text="${product.name}"></div>
+							<div class="product-price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+' đ'"></div>
+							<del class="price-del" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+' đ'"></del>
+							<div><span class="add-cart" th:id="${product.id}"><i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ</span></div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="viewMore">
+				<span class="btnViewMore" th:if="${totalPP > 18}">Xem thêm sản phẩm <i class="fa-solid fa-angle-down"></i></span>
+			</div>
+		</div>
+		
+		<div class="suggest-products">
+			<span><i class="fa-solid fa-tag"></i> Gợi ý cho bạn</span>
+			<div class="row">
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 my-2 p-1" th:if="${product.quantity!=0}" th:each="product : ${suggestProducts}">
+					<div class="product border">
+						<div class="price-promotion">
+							<div class="promotion" th:if="${product.promotion}" th:text="'-'+${product.discount}+'%'"></div>
+						</div>
+						<a th:href="'product?id='+${product.id}+'&name='+${product.name}">
+							<img th:src="'/images/'+${product.images[0]}" width="100%" height="200px">
+							<div class="product-name" th:text="${product.name}"></div>
+							<div class="product-priceDel">
+								<div class="product-price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+' đ'"></div>
+								<del class="price-del" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+' đ'"></del>
+							</div>
+							<div><span class="add-cart" th:id="${product.id}"><i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ</span></div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="viewMore">
+				<span class="btnViewMore" th:if="${totalSP > 18}">Xem thêm sản phẩm <i class="fa-solid fa-angle-down"></i></span>
+			</div>
+		</div>
+		
+		<div class="cookie-products" th:if="${totalCookieP!=0}">
+			<span><i class="fa-solid fa-check"></i> Sản phẩm đã xem</span>
+			<div class="cookies">
+				<div class="row">
+					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 my-2 p-1" th:if="${product.quantity!=0}" th:each="product : ${cookieProducts}">
+						<div class="product border">
+							<div class="price-promotion">
+								<div class="delete-cookie" th:id="${product.id}"><i class="fa-solid fa-trash-can"></i> Xóa</div>
+								<div class="promotion" th:if="${product.promotion}" th:text="'-'+${product.discount}+'%'"></div>
+							</div>
+							<a th:href="'product?id='+${product.id}+'&name='+${product.name}">
+								<img th:src="'/images/'+${product.images[0]}" width="100%" height="200px">
+								<div class="product-name" th:text="${product.name}"></div>
+								<div class="product-priceDel">
+									<div class="product-price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+' đ'"></div>
+									<del class="price-del" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+' đ'"></del>
+								</div>
+								<div><span class="add-cart" th:id="${product.id}"><i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ</span></div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="viewMore">
+					<span th:if="${totalCookieP > 6}" class="btnViewMore">Xem thêm sản phẩm <i class="fa-solid fa-angle-down"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:insert="~{home/footer}"></div>
+</body>
+<script src="/slick-1.8.1/slick/slick.min.js"></script>
+<script src="/js/home/index.js"></script>
+</html>

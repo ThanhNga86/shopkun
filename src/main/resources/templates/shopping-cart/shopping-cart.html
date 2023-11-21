@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopkun - mua sắm trực tuyến, mua sắm online giá tốt</title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<link rel="stylesheet" href="/css/shopping-cart/shopping-cart.css">
+</head>
+<body>
+	<div th:insert="~{home/header}"></div>
+	
+	<div class="container" id="containerCart">
+		<div class="instruction p-1" th:text="${instruction}"></div>
+		
+		<div class="shopping-cart">
+			<div class="row">
+				<div class="my-cart col-xl-7 col-lg-7">
+					<div class="title">Giỏ hàng của bạn</div>
+					<div class="not-cart" th:if="${session.totalCart==null}">Bạn chưa có sản phẩm nào trong giỏ hàng !</div>
+					<div class="not-cart"></div>
+					<a class="product-cart" th:href="'product?id='+${product.id}+'&name='+${product.name}" th:each="product : ${cartProducts}">
+						<div class="image col-xl-2 col-lg-2 col-md-2 col-sm-2">
+							<img th:src="'/images/'+${product.images[0]}" width="100" height="100">
+						</div>
+						
+						<div class="nameAndPrice col-xl-8 col-lg-8 col-md-8 col-sm-8">
+							<div class="name" th:text="${product.name}"></div>
+							<span class="price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+'đ'"></span>
+							<del class="price-del" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+'đ'"></del>
+							
+							<div th:each="message : ${messageCarts}">
+								<div class="messageCart" th:if="${#strings.substringBefore(message, '|')}==${product.id}" th:text="${#strings.substringAfter(message, '|')}"></div>
+							</div>
+						</div>
+						
+						<div th:id="${product.id}" class="action col-xl-2 col-lg-2 col-md-2 col-sm-2">
+							<div class="totalP" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100*product.quantity, 0, 'POINT', 0, 'POINT')}+'đ'"></div>	
+							<div class="qtity btn-group" role="group">
+							  <button class="minus"><i class="fa-solid fa-minus"></i></button>
+							  <span class="quantity" th:text="${product.quantity}"></span>
+							  <button class="plus"><i class="fa-regular fa-plus"></i></button>
+							</div>
+						</div>
+						<div th:id="${product.id}" class="remove">
+							<i class="fa-solid fa-x"></i>
+						</div>
+					</a>
+				</div>
+				
+				<div class="info-cart col-xl-5 col-lg-5">
+					<div class="title">Thông tin và địa chỉ nhận hàng</div>
+					
+					<form action="/shopping-cart" method="post">
+						<class class="form-group">
+							<label>Họ và tên</label>
+							<input type="text" name="fullName" class="form-control" th:value="${vlFullName}">
+							<div class="message" th:text="${msFullName}"></div>
+						</class>
+						
+						<class class="form-group">
+							<label>Địa chỉ</label>
+							<input type="text" name="address" class="form-control" th:value="${vlAddress}" placeholder="Số nhà, tên đường, phường/xã, quận/huyện/thị xã, tỉnh/thành phố">
+							<div class="message" th:text="${msAddress}"></div>
+						</class>
+						
+						<class class="form-group">
+							<label>Số điện thoại</label>
+							<input type="text" name="phone" class="form-control" th:value="${vlPhone}">
+							<div class="message" th:text="${msPhone}"></div>
+						</class>
+						
+						<class class="form-group">
+							<label>Ghi chú (nếu có)</label>
+							<textarea rows="3" type="text" name="note" class="form-control" th:inline="text">[[${vlNote}]]</textarea>
+						</class>
+						
+						<div class="total-pay">Tổng tiền: 0đ</div>
+						
+						<div class="form-btn">
+							<button class="btnOrder">ĐẶT HÀNG</button>
+						</div>
+					</form>
+					
+					<script th:if="${orderSC!=null}">
+						swal("", "Đặt hàng thành công", "success")
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="/js/shopping-cart/shopping-cart.js"></script>
+</html>

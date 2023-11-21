@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/users/users.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerUsers">
+		<div class="users">
+			<form class="formFilter">
+				<input type="search" name="search" class="searchA form-control" placeholder="Tìm kiếm theo tên đăng nhập, tên khách hàng, email, số điện thoại" th:value="${vlSearch}">
+			</form>
+			
+			<div class="tableUser table-responsive">
+				<table class="table table-bordered mt-2 text-center">
+					<tr>
+						<th>Tên đăng nhập</th>
+						<th>Mật khẩu</th>
+						<th>Họ và tên</th>
+						<th>Địa chỉ</th>
+						<th>Email</th>
+						<th>Số điện thoại</th>
+						<th>Trạng thái</th>
+						<th>Vai trò</th>
+						<th>Hành động</th>
+					</tr>
+					
+					<tr th:each="account : ${accounts}">
+						<td class="accountId" th:text="${account.username}"></td>
+						<td class="password">********</td>
+						<td class="fullName" th:text="${account.fullName}"></td>
+						<td class="address" th:text="${account.address}"></td>
+						<td class="email" th:text="${account.email}"></td>
+						<td class="phone" th:text="${account.phone}"></td>
+						<td class="status">
+							<span class="active" th:if="${account.activated}">Hoạt động</span>
+							<span class="unActive" th:if="${!account.activated}">Khóa</span>
+						</td>
+						<td class="role" th:text="${#strings.replace(account.role, 'ROLE_', '')}"></td>
+						<td class="action">
+							<span class="edit" th:id="${account.username}" data-bs-toggle="modal" th:data-bs-target="'#editAccount_'+${account.username}"><i class="fa-solid fa-pen"></i> Sửa</span>
+							<div class="modal fade" th:id="'editAccount_'+${account.username}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật tài khoản</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="data-save modal-body">
+							        <form>
+									    <div class="form-group">
+											<label>Tên đăng nhập</label>
+											<input type="text" class="inpUsername form-control" th:value="${account.username}">
+											<div class="message msUsername"></div>
+										</div>
+										
+										<div class="form-group">
+											<label>Mật khẩu</label>
+											<input type="password" class="inpPassword form-control" th:value="${account.password}">
+											<div class="message msPassword"></div>
+										</div>
+										
+										<div class="form-group">
+											<label>Họ và tên</label>
+											<input type="text" class="inpFullName form-control" th:value="${account.fullName}">
+											<div class="message msFullName"></div>
+										</div>
+										
+										<div class="form-group">
+											<label>Địa chỉ</label>
+											<input type="text" class="inpAddress form-control" th:value="${account.address}">
+											<div class="message msAddress"></div>
+										</div>
+										
+										<class class="form-group">
+											<label>Email</label>
+											<input type="text" class="inpEmail form-control" th:value="${account.email}">
+											<div class="message msEmail"></div>
+										</class>
+										
+										<div class="form-group">
+											<label>Số điện thoại</label>
+											<input type="number" class="inpPhone form-control" th:value="${account.phone}">
+											<div class="message msPhone"></div>
+										</div>
+										
+										<div class="form-group">
+											<label>Trạng thái</label>
+											<select th:if="${account.activated}" class="inpActivated form-select">
+												<option value="true">Hoạt động</option>
+												<option value="false">Khóa</option>
+											</select>
+											<select th:if="${!account.activated}" class="inpActivated form-select">
+												<option value="true">Hoạt động</option>
+												<option value="false" selected>Khóa</option>
+											</select>
+											<div class="message msActivated"></div>
+										</div>
+										
+										<div class="form-group">
+											<label>Vai trò</label>
+											<select th:if="${account.role=='ROLE_ADMIN'}" class="inpRole form-select">
+												<option value="ROLE_ADMIN">ADMIN</option>
+												<option value="ROLE_USER">USER</option>
+											</select>
+											<select th:if="${account.role=='ROLE_USER'}" class="inpRole form-select">
+												<option value="ROLE_ADMIN">ADMIN</option>
+												<option value="ROLE_USER" selected>USER</option>
+											</select>
+											<div class="message msActivated"></div>
+										</div>
+									</form>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary btnReset" data-bs-dismiss="modal">Hủy</button>
+							        <button type="button" class="btn btn-primary btnSave">Lưu thay đổi</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							
+							<span class="remove" th:id="${account.username}"><i class="fa-solid fa-trash-can"></i> Xóa</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<ul id="paging" th:if="${total > 10}">
+				<a class="page" href="/admin/users?page=1"><li>Đầu</li></a>
+				<span th:each="i : ${#numbers.sequence(1, totalPage)}">
+					<span th:if="${i <= 5 && pageNumber <= 2}">
+						<span th:if="${i==pageNumber}">
+							<a class="page" th:href="'/admin/users?page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+						</span>
+						<span th:if="${i!=pageNumber}">
+							<a class="page" th:href="'/admin/users?page='+${i}"><li th:text="${i}"></li></a>
+						</span>
+					</span>
+					
+					<span th:if="${pageNumber > 2}">
+						<span th:if="${i >= pageNumber-2 && i <= pageNumber+2}">
+							<span th:if="${i==pageNumber}">
+								<a class="page" th:href="'/admin/users?page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+							</span>
+							<span th:if="${i!=pageNumber}">
+								<a class="page" th:href="'/admin/users?page='+${i}"><li th:text="${i}"></li></a>
+							</span>
+						</span>
+					</span>
+				</span>
+				<a class="page" th:href="'/admin/users?page='+${totalPage}"><li>Cuối</li></a>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/users/users.js"></script>
+</html>

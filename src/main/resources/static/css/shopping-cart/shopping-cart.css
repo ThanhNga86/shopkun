@@ -1,0 +1,203 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerCart {
+		padding: 59px 0 0 0;
+	}
+
+	#containerCart .shopping-cart .product-cart .name {
+		font-size: larger;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerCart {
+		padding: 59px 0 0 0;
+	}
+
+	#containerCart .shopping-cart .product-cart .name {
+		font-size: larger;
+	}
+}
+
+@media (max-width: 768px) {
+	#containerCart {
+		padding: 59px 0 0 0;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerCart {
+		padding: 94px 0 0 0;
+	}
+
+	#containerCart .shopping-cart .product-cart .name {
+		font-size: medium;
+	}
+
+	#containerCart .shopping-cart .product-cart .nameAndPrice {
+		width: 80%;
+	}
+}
+
+#containerCart .instruction {
+	color: white;
+	background-color: lightskyblue;
+}
+
+#containerCart .instruction>a {
+	text-decoration: none;
+	color: white;
+	font-size: large;
+}
+
+#containerCart .instruction .fa-angle-right {
+	margin: 0 5px;
+}
+
+/*Images shopping-cart*/
+#containerCart .shopping-cart {
+	background-color: white;
+}
+
+#containerCart .shopping-cart .row {
+	margin: 0;
+}
+
+#containerCart .shopping-cart .title {
+	font-size: larger;
+	font-weight: 500;
+}
+
+#containerCart .shopping-cart .not-cart {
+	text-align: center;
+	font-size: larger;
+	font-weight: 500;
+	color: lightsalmon;
+}
+
+#containerCart .shopping-cart .my-cart {
+	padding-bottom: 20px;
+}
+
+#containerCart .shopping-cart .product-cart {
+	text-decoration: none;
+	position: relative;
+	color: black;
+	margin: 5px 0;
+	padding-top: 3px;
+	border-top: solid 1px lightgray;
+	display: flex;
+}
+
+#containerCart .shopping-cart .product-cart .image {
+	padding-left: 12px;
+}
+
+#containerCart .shopping-cart .product-cart .nameAndPrice {
+	padding: 0 0 0 24px;
+}
+
+#containerCart .shopping-cart .product-cart .price {
+	font-weight: 500;
+	font-size: medium;
+}
+
+#containerCart .shopping-cart .product-cart .price-del {
+	color: darkgray;
+}
+
+#containerCart .shopping-cart .product-cart .action {
+	text-align: end;
+	padding: 0;
+}
+
+#containerCart .shopping-cart .product-cart .action .totalP {
+	font-size: large;
+	font-weight: 500;
+	color: rgb(255, 73, 22)
+}
+
+#containerCart .shopping-cart .product-cart .action .minus,
+.plus,
+.quantity {
+	border: solid 1px lightgray;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#containerCart .shopping-cart .product-cart .action .minus:hover,
+.plus:hover {
+	opacity: 0.6;
+}
+
+#containerCart .shopping-cart .product-cart .remove {
+	position: absolute;
+	padding: 0 5px;
+	background-color: lightgray;
+	border-radius: 50%;
+	cursor: pointer;
+	opacity: 0.8;
+	z-index: 1;
+}
+
+#containerCart .shopping-cart .product-cart .remove .fa-x {
+	font-size: medium;
+}
+
+#containerCart .shopping-cart .product-cart .remove:hover {
+	opacity: 0.8;
+}
+
+#containerCart .shopping-cart .info-cart {
+	background-color: rgba(245, 131, 99, 0.3);
+}
+
+#containerCart .shopping-cart form {
+	margin-bottom: 20px;
+}
+
+#containerCart .shopping-cart form label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerCart .shopping-cart .message{
+	font-size: large;
+	color: red;
+}
+
+#containerCart .shopping-cart .messageCart{
+	font-size: large;
+	color: red;
+}
+
+#containerCart .shopping-cart form .form-control:focus {
+	box-shadow: none;
+}
+
+#containerCart .shopping-cart form .total-pay{
+	margin: 5px 0;
+	font-size: 22px;
+	font-weight: 500;
+	color: rgb(255, 73, 22);
+}
+
+#containerCart .shopping-cart form .form-btn {
+	text-align: center;
+	margin: 10px 0;
+}
+
+#containerCart .shopping-cart form .form-btn .btnOrder{
+	border: none;
+	padding: 10px 25%;
+	border-radius: 10px;
+	color: white;
+	font-size: large;
+	cursor: pointer;
+	user-select: none;
+	background-color: lightsalmon;
+}

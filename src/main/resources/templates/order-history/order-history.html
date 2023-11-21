@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopkun - mua sắm trực tuyến, mua sắm online giá tốt</title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<link rel="stylesheet" href="/css/order-history/order-history.css">
+</head>
+<body>
+	<div th:insert="~{home/header}"></div>
+	
+	<div class="container" id="containerOrderH">
+		<div class="instruction p-1" th:text="${instruction}"></div>
+		
+		<div class="order-history">
+			<div class="row">
+				<nav>
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					    <button class="nav-link active" id="nav-waitForConfirmation-tab" data-bs-toggle="tab" data-bs-target="#waitForConfirmation" type="button" role="tab" aria-controls="waitForConfirmation" aria-selected="true">
+							<div class="icon">
+								<i class="ic fa-regular fa-calendar position-relative">
+									<span th:text="${totalWait}" th:if="${totalWait!=0}" class="qtityP totalWait position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+								</i>
+							</div>
+							<div class="btnNav">Chờ xác nhận</div>
+						</button>
+					    <button class="nav-link" id="nav-confirmed-tab" data-bs-toggle="tab" data-bs-target="#confirmed" type="button" role="tab" aria-controls="confirmed" aria-selected="false">
+							<div class="icon">
+								<i class="ic fa-regular fa-calendar-check position-relative">
+									<span th:text="${totalConfirmed}" th:if="${totalConfirmed!=0}" class="qtityP totalConfirmed position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+								</i>
+							</div>
+							<div class="btnNav">Đã xác nhận</div>
+						</button>
+					    <button class="nav-link" id="nav-delivering-tab" data-bs-toggle="tab" data-bs-target="#delivering" type="button" role="tab" aria-controls="delivering" aria-selected="false">
+							<div class="icon">
+								<i class="ic fa-solid fa-truck-fast position-relative">
+									<span th:text="${totalDelivering}" th:if="${totalDelivering!=0}" class="qtityP totalDelivering position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+								</i>
+							</div>
+							<div class="btnNav">Đang giao</div>
+						</button>
+					    <button class="nav-link" id="nav-delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered" type="button" role="tab" aria-controls="delivered" aria-selected="false">
+							<div class="icon">
+								<i class="ic fa-solid fa-box-open position-relative"></i>
+							</div>
+							<div class="btnNav">Đã giao</div>
+						</button>
+					    <button class="nav-link" id="nav-cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab" aria-controls="cancelled" aria-selected="false">
+							<div class="icon">
+								<i class="ic fa-regular fa-rectangle-xmark position-relative"></i>
+							</div>
+							<div class="btnNav">Đã hủy</div>
+						</button>
+					</div>
+					<input type="search" class="form-control search-order" placeholder="Tìm theo mã đơn hàng, tên sản phẩm">
+				</nav>
+				
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="waitForConfirmation" role="tabpanel" aria-labelledby="nav-waitForConfirmation-tab" tabindex="0">
+						<div class="orderStatus">
+							<div th:if="${totalWait==0}" class="not-order">Bạn chưa có đơn hàng nào !</div>
+							
+							<div class="col-xl-9 col-lg-10 col-md-11 col-sm-12" th:each="order : ${ordersHistory}">
+								<div class="order">
+									<div class="heading">
+										<span class="id" th:text="'Mã đơn: '+${order.id}"></span>
+										<span class="createDate" th:text="${#dates.format(order.createDate, 'dd-MM-yyyy hh:mm')}"></span>
+									</div>
+									<a th:href="'product?id='+${orderDetail.product.id}+'&name='+${orderDetail.product.name}" class="orderDetail" th:if="${order.id==orderDetail.order.id}" th:each="orderDetail : ${orderDetailsHistory}">
+										<div class="image">
+											<img th:src="'/images/'+${orderDetail.product.images[0]}" width="100" height="100">
+										</div>
+										
+										<div class="info">
+											<div class="name" th:text="${orderDetail.product.name}"></div>
+											<span class="price" th:text="${#numbers.formatDecimal(orderDetail.product.price * (100-orderDetail.product.discount)/100, 0, 'POINT', 0, 'POINT')}+'đ'"></span>
+											<del class="price-del" th:if="${orderDetail.product.promotion}" th:text="${#numbers.formatDecimal(orderDetail.product.price, 0, 'POINT', 0, 'POINT')}+'đ'"></del>
+											<div class="quantity" th:text="'Số lượng: '+${orderDetail.quantity}"></div>
+											<div class="total" th:text="${#numbers.formatDecimal(orderDetail.product.price * (100-orderDetail.product.discount)/100*orderDetail.quantity, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+										</div>
+									</a>
+									
+									<div class="row">
+										<div class="totalPay col-xl-6 col-lg-6 col-md-6 col-sm-6">Tổng tiền: <span></span></div>
+										<div class="action col-xl-6 col-lg-6 col-md-6 col-sm-6">
+											<span class="cancel" th:id="${order.id}">Hủy đơn hàng</span>
+											<span class="seeInfo" data-bs-toggle="collapse" th:data-bs-target="'#seeInfo-'+${order.id}" aria-expanded="false" aria-controls="seeInfo">
+												Thông tin đơn hàng
+											</span>
+										</div>
+										<div class="collapse table-responsive" th:id="'seeInfo-'+${order.id}">
+										   <table class="table">
+											   <tr class="head">
+												   <td>Họ và tên</td>
+												   <td>Địa chỉ</td>
+												   <td>Số điện thoại</td>
+												   <td>Ghi chú</td>
+											   </tr>
+											   
+											   <tr>
+												   <td th:text="${order.fullName}"></td>
+												   <td th:text="${order.address}"></td>
+												   <td th:text="${order.phone}"></td>
+												   <td th:text="${order.note}"></td>
+											   </tr>
+										   </table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="confirmed" role="tabpanel" aria-labelledby="nav-confirmed-tab" tabindex="0">
+						<div class="orderStatus"></div>
+					</div>
+					
+					<div class="tab-pane fade" id="delivering" role="tabpanel" aria-labelledby="nav-delivering-tab" tabindex="0">
+						<div class="orderStatus"></div>
+					</div>
+					
+					<div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="nav-delivered-tab" tabindex="0">
+						<div class="orderStatus"></div>
+						<div class="viewMore"></div>
+					</div>
+					
+					<div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="nav-cancelled-tab" tabindex="0">
+						<div class="orderStatus"></div>
+						<div class="viewMore"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="/js/order-history/order-history.js"></script>
+</html>

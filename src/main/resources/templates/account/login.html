@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopkun - mua sắm trực tuyến, mua sắm online giá tốt</title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<link rel="stylesheet" href="/css/account/login.css">
+</head>
+<body>
+	<div th:insert="~{home/header}"></div>
+	
+	<div class="container" id="containerLogin">
+		<div class="login row">
+			<div class="formLogin col-xl-5 col-lg-7 col-md-8 col-sm-9">
+				<div class="logo">
+					<img src="/images/logo.png" alt="shopkun">
+				</div>
+				<div class="title">
+					ĐĂNG NHẬP
+				</div>
+				
+				<form th:action="@{/authenticateTheUser}" method="post">
+					<div class="form-group">
+						<label>Tên đăng nhập</label>
+						<input type="text" name="username" class="form-control" value="admin">
+						<label>Mật khẩu</label>
+						<input type="password" name="password" class="form-control" value="admin123">
+						<div class="message" th:if="${param.error}">Tài khoản hoặc mật khẩu không chính xác</div>
+						<div class="fp"><a href="/account/forgot-password">Quên mật khẩu?</a></div>
+						<button class="btnLogin">ĐĂNG NHẬP</button>
+					</div>
+				</form>
+				
+				<div class="other-login"><hr><span>HOẶC</span><hr></div>
+				<a class="loginOther" th:href="@{/oauth2/authorization/google}">
+					<img src="/images/icon-google.png" width="30px" height="30px"> Tiếp tục với Google
+				</a>
+				<a class="loginOther" th:href="@{/oauth2/authorization/facebook}">
+					<img src="/images/icon-fb.png" width="30px" height="30px"> Tiếp tục với Facebook
+				</a>
+				
+				<div class="register">Bạn chưa có tài khoản? <a href="/account/register">Đăng ký tài khoản mới</a></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="/js/jquery/jquery-3.7.1.min.js"></script>
+<script src="/js/account/login.js"></script>
+</html>

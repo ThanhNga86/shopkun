@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerAddProduct .addProduct {
+		margin: 60px 0 0 240px;
+		padding: 10px;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerAddProduct .addProduct {
+		margin: 60px 0 0 0;
+		padding: 10px;
+	}
+}
+
+#containerAddProduct .addProduct {
+	background-color: white;
+	padding-bottom: 20px;
+}
+
+#containerAddProduct .addProduct label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerAddProduct .addProduct .form-select:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerAddProduct .addProduct .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerAddProduct .addProduct .btnSave {
+	margin: 5px 0;
+	padding: 10px 12%;
+	background-color: deepskyblue;
+	border: none;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+	border-radius: 10px;
+	white-space: nowrap;
+}
+
+#containerAddProduct .addProduct .btnReset {
+	padding: 10px 6%;
+	background-color: lightcoral;
+	border: none;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+	border-radius: 10px;
+	white-space: nowrap;
+}
+
+#containerAddProduct .addProduct .btnSave:hover,
+.btnReset:hover {
+	opacity: 0.8;
+}
+
+#containerAddProduct .addProduct .message {
+	font-size: large;
+	color: red;
+}
+
+#containerAddProduct .addProduct .ctnPoster {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	width: 200px;
+	height: 180px;
+}
+
+#containerAddProduct .addProduct .ctnPoster .poster {
+	cursor: pointer;
+	border: solid 1px lightgray;
+}
+
+#containerAddProduct .addProduct .ctnPoster .removePoster {
+	display: none;
+	position: absolute;
+	color: gray;
+	cursor: pointer;
+	padding: 2px;
+	background-color: white;
+	opacity: 0.6;
+}
+
+#containerAddProduct .addProduct .ctnPoster .removePoster:hover{
+	opacity: 1;
+}
+
+#containerAddProduct .addProduct .iconImage {
+	cursor: pointer;
+}
+
+#containerAddProduct .addProduct .fa-image {
+	font-size: 35px;
+	color: lightsalmon;
+}
+
+#containerAddProduct .addProduct .show-file {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	width: 100px;
+	height: 100px;
+	padding: 3px;
+}
+
+#containerAddProduct .addProduct .btnRmImage {
+	width: 8px;
+	height: 8px;
+	background-color: white;
+	position: absolute;
+}
+
+#containerAddProduct .addProduct .ctnDescribe {
+	display: flex;
+	align-items: center;
+	margin: 0;
+}
+
+#containerAddProduct .addProduct .ctnDescribe .addDescribe {
+	display: flex;
+	align-items: center;
+	padding: 0;
+}
+
+#containerAddProduct .addProduct .ctnDescribe .describeId {
+	width: 20%;
+}
+
+#containerAddProduct .addProduct .ctnDescribe .describe {
+	margin: 0 5px;
+	width: 75%;
+}
+
+#containerAddProduct .addProduct .btnAddDescribe {
+	margin-bottom: 5px;
+	width: 110px;
+	text-align: center;
+	padding: 6px;
+	border-radius: 6px;
+	background-color: lightsalmon;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+	white-space: nowrap;
+}
+
+#containerAddProduct .addProduct .btnRemoveDescribe {
+	width: 40px;
+	text-align: center;
+	padding: 6px;
+	border-radius: 6px;
+	background-color: lightcoral;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+	white-space: nowrap;
+}
+
+#containerAddProduct .addProduct .price-promotion {
+	display: flex;
+	align-items: center;
+}
+
+#containerAddProduct .addProduct .dcPrice {
+	margin: 0 5px;
+	font-size: large;
+}

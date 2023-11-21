@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerFG {
+		padding-top: 80px;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerFG {
+		padding-top: 80px;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerFG {
+		padding-top: 110px;
+	}
+}
+
+#containerFG .row {
+	display: flex;
+	justify-content: center;
+}
+
+#containerFG .formFG {
+	background-color: white;
+	padding-bottom: 20px;
+}
+
+#containerFG .formFG .logo {
+	text-align: center;
+	margin-top: 40px;
+}
+
+#containerFG .formFG .title {
+	font-size: 24px;
+	font-weight: 500;
+	margin: 20px 0;
+}
+
+#containerFG .formFG form {
+	margin-bottom: 20px;
+}
+
+#containerFG .formFG label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerFG .formFG .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerFG .formFG .btnFG {
+	margin: 15px 0;
+	display: flex;
+	justify-content: center;
+}
+
+#containerFG .formFG .btnFG>button {
+	padding: 10px 20%;
+	background-color: deepskyblue;
+	border: none;
+	color: white;
+	border-radius: 10px;
+	white-space: nowrap;
+}
+
+#containerFG .formFG .btnFG .cancel {
+	margin-left: 5px;
+	padding: 10px 5%;
+	background-color: darkgray;
+	border: none;
+	color: white;
+	border-radius: 10px;
+}
+
+#containerFG .formFG .btnFG>button:hover {
+	opacity: 0.8;
+}
+
+#containerFG .formFG .message {
+	font-size: large;
+	color: red;
+}
+
+#containerFG .formFG .emailXN{
+	color: skyblue;
+}
+
+#containerFG .formFG .resend{
+	color: deepskyblue;
+	text-decoration: none;
+	font-size: large;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopkun - mua sắm trực tuyến, mua sắm online giá tốt</title>
+<link rel="icon" href="/images/icon-logo.jpg">
+<link rel="stylesheet" href="/css/account/update.css">
+</head>
+<body>
+	<div th:insert="~{home/header}"></div>
+	
+	<div class="container" id="containerFG">
+		<div class="row">
+			<div class="formFG col-xl-6 col-lg-7 col-md-8 col-sm-9">
+				<div class="logo">
+					<img src="/images/logo.png" alt="shopkun">
+				</div>
+				<div class="title">
+					CẬP NHẬT TÀI KHOẢN
+				</div>
+				
+				<form action="/account/update" method="post">
+					<class class="form-group">
+						<label>Họ và tên</label>
+						<input type="text" name="fullName" class="form-control" th:value="${vlFullName}">
+						<div class="message" th:text="${msFullName}"></div>
+					</class>
+					
+					<class class="form-group">
+						<label>Địa chỉ</label>
+						<input type="text" name="address" class="form-control" th:value="${vlAddress}">
+						<div class="message" th:text="${msAddress}"></div>
+					</class>
+					
+					<class class="form-group">
+						<label>Email</label>
+						<input type="text" name="email" class="form-control" th:value="${vlEmail}">
+						<div class="message" th:text="${msEmail}"></div>
+					</class>
+					
+					<class class="form-group">
+						<label>Số điện thoại</label>
+						<input type="text" name="phone" class="form-control" th:value="${vlPhone}">
+						<div class="message" th:text="${msPhone}"></div>
+					</class>
+					
+					<class class="btnFG">
+						<button>LƯU THAY ĐỔI</button>
+					</class>
+				</form>
+			</div>
+			<script th:if="${updateSC!=null}">
+				swal("", "Cập nhật tài khoản thành công", "success")
+			</script>
+		</div>
+	</div>
+</body>
+<script src="/js/jquery/jquery-3.7.1.min.js"></script>
+<script src="/js/account/update.js"></script>
+</html>

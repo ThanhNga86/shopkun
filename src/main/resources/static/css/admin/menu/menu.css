@@ -1,0 +1,191 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+	background-color: rgb(226, 228, 230);
+}
+
+@media (min-width: 992px) {
+	#containerMenu .header {
+		margin-left: 240px;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerMenu .menu {
+		display: none;
+	}
+
+	#containerMenu .header {
+		margin-left: 0;
+		width: 100%;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerMenu .header .instruction {
+		display: none;
+	}
+}
+
+#containerMenu .offcanvas {
+	max-width: 80%;
+	background-color: rgb(60, 104, 144);
+	color: white;
+	cursor: default;
+}
+
+#containerMenu .offcanvas .offcanvas-body {
+	padding: 0;
+}
+
+#containerMenu {
+	display: flex;
+}
+
+#containerMenu .menu {
+	white-space: nowrap;
+	position: fixed;
+	width: 240px;
+	height: 100vh;
+	background-color: rgb(60, 104, 144);
+	padding: 0;
+}
+
+#containerMenu .menu .logo {
+	text-align: center;
+	padding: 10px 0;
+}
+
+#containerMenu .menu ul,
+.offcanvas-body ul {
+	padding: 0;
+}
+
+#containerMenu .menu ul a,
+.offcanvas-body ul a {
+	text-decoration: none;
+	font-size: larger;
+	color: white;
+}
+
+#containerMenu .menu ul li,
+.offcanvas-body ul li {
+	white-space: nowrap;
+	display: block;
+}
+
+#containerMenu .menu ul a li:hover {
+	background-color: skyblue;
+}
+
+#containerMenu .menu ul a li,
+.offcanvas-body ul a li {
+	display: block;
+	padding: 8px 0;
+	display: flex;
+}
+
+#containerMenu .menu ul a li .icon,
+.offcanvas-body ul a li .icon {
+	margin-left: 10px;
+	margin-right: 5px;
+	width: 25px;
+	text-align: center;
+}
+
+#containerMenu .menu .menu-mini,
+.offcanvas-body .menu-mini {
+	display: block;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 0;
+	font-size: larger;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+}
+
+#containerMenu .menu .menu-mini:hover {
+	background-color: skyblue;
+}
+
+#containerMenu .menu .menu-mini .right,
+.offcanvas-body .right {
+	margin-right: 3px;
+}
+
+#containerMenu .menu .menu-mini .icon,
+.offcanvas-body .menu-mini .icon {
+	margin-left: 10px;
+	margin-right: 5px;
+	width: 25px;
+	text-align: center;
+}
+
+#containerMenu .menu .show-menuMini .icon,
+.offcanvas-body .show-menuMini .icon {
+	margin-left: 26px;
+}
+
+#containerMenu .header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	margin-bottom: 10px;
+	background-color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0 4px 4px -2px rgba(0, 0, 0, .15);
+}
+
+#containerMenu .header .instruction {
+	font-size: 18px;
+	margin-left: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	padding-right: 20px;
+}
+
+#containerMenu .header .instruction>a {
+	text-decoration: none;
+	color: deepskyblue;
+}
+
+#containerMenu .header .account {
+	user-select: none;
+	margin-right: 15px;
+}
+
+#containerMenu .header .account .login {
+	text-decoration: none;
+	display: block;
+	color: lightslategrey;
+	text-decoration: none;
+	font-size: large;
+}
+
+#containerMenu .header .account .user {
+	color: lightslategrey;
+	text-decoration: none;
+	font-size: larger;
+}
+
+#containerMenu .header .account .username {
+	margin-left: 5px;
+}
+
+#containerMenu .header .dropdown-menu>li {
+	font-size: large;
+	border-bottom: solid 1px gray;
+}

@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerRegister {
+		padding-top: 80px;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerRegister {
+		padding-top: 80px;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerRegister {
+		padding-top: 110px;
+	}
+}
+
+#containerRegister .row {
+	display: flex;
+	justify-content: center;
+}
+
+#containerRegister .formRegister {
+	background-color: white;
+}
+
+#containerRegister .formRegister .logo {
+	text-align: center;
+	margin-top: 40px;
+}
+
+#containerRegister .formRegister .title {
+	font-size: 24px;
+	font-weight: 500;
+	margin: 20px 0;
+}
+
+#containerRegister .formRegister form {
+	margin-bottom: 20px;
+}
+
+#containerRegister .formRegister label {
+	font-size: larger;
+	margin-bottom: 1px;
+}
+
+#containerRegister .formRegister .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerRegister .formRegister .btnRegister {
+	margin: 15px 0;
+	display: flex;
+	justify-content: center;
+}
+
+#containerRegister .formRegister .btnRegister>button {
+	padding: 10px 30%;
+	background-color: deepskyblue;
+	border: none;
+	color: white;
+	border-radius: 10px;
+}
+
+#containerRegister .formRegister .btnRegister>button:hover {
+	opacity: 0.8;
+}
+
+#containerRegister .formRegister .message {
+	font-size: large;
+	color: red;
+}

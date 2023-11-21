@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="icon" href="/images/icon-logo.jpg">	
+<link rel="stylesheet" href="/css/admin/products/products.css">
+<link rel="stylesheet" href="/Font-icon/fontawesome-free-6.4.2-web/css/all.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<div th:insert="~{admin/menu/menu}"></div>
+	
+	<div id="containerProducts">
+		<div class="products">
+			<form class="formFilter">
+				<input type="search" name="search" class="searchP form-control w-75" placeholder="Tìm kiếm theo mã số hoặc tên sản phẩm" th:value="${vlSearch}">
+				<div class="btn-group mx-2">
+				  <span class="btnFilter dropdown-toggle" th:if="${#strings.isEmpty(filter)}" data-bs-toggle="dropdown" aria-expanded="false">
+				  		<i class="fa-solid fa-filter"></i> <span class="nameFilter">Lọc sản phẩm theo</span>
+				  </span>
+				  <span class="btnFilter dropdown-toggle" th:data-filter="${filter}" th:if="${not #strings.isEmpty(filter)}" data-bs-toggle="dropdown" aria-expanded="false">
+				  		<i class="fa-solid fa-filter"></i> <span class="nameFilter" th:text="${nameFilter}"></span>
+				  </span>
+				  <ul class="dropdown-menuP dropdown-menu dropdown-menu-end">
+				    <li><a class="dropdown-item" th:if="${not #strings.isEmpty(filter)}" href="/admin/products">Bỏ lọc sản phẩm</a></li>
+				    <li><a class="dropdown-item" href="/admin/products?filter=promotion">Giá khuyến mãi</a></li>
+				    <li><a class="dropdown-item" href="/admin/products?filter=notPromotion">Giá không khuyến mãi</a></li>
+				    <li><a class="dropdown-item" href="/admin/products?filter=stocking">Còn hàng</a></li>
+				    <li><a class="dropdown-item" href="/admin/products?filter=outStock">Hết hàng</a></li>
+				    <li th:each="category : ${categories}"><a th:href="'/admin/products?filter=category_'+${category.id}" class="dropdown-item" th:text="${category.name}"></a></li>
+				  </ul>
+				</div>
+			</form>
+			
+			<div class="tableP table-responsive">
+				<table class="table table-bordered mt-2 text-center">
+					<tr>
+						<th>Mã số</th>
+						<th>Tên sản phẩm</th>
+						<th>Hình ảnh</th>
+						<th>Giá</th>
+						<th>Khuyễn mãi</th>
+						<th>Số lượng</th>
+						<th>Mô tả</th>
+						<th>Ngày tạo</th>
+						<th>Thể loại</th>
+						<th>Hành động</th>
+					</tr>
+					
+					<tr th:if="${total==0}">
+						<td colspan="10" class="resultQ">Hiện tại chưa có sản phẩm !</td>
+					</tr>
+					
+					<tr th:each="product : ${products}">
+						<td class="productId" th:text="${product.id}"></td>
+						<td class="name" th:text="${product.name}"></td>
+						<td class="image">
+							<div class="viewDetailImage">
+								<image th:src="'/images/'+${product.images[0]}" width="100%" height="100%"></image>
+								<div class="viewImage" th:text="'Xem '+${product.images.size}+' hình'"></div>
+							</div>
+						</td>
+						<td class="priceAndDel">
+							<div class="price" th:text="${#numbers.formatDecimal(product.price * (100-product.discount)/100, 0, 'POINT', 0, 'POINT')}+'đ'"></div>
+							<del class="price-del" th:if="${product.promotion}" th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')}+'đ'"></del>
+						</td>
+						<td class="promotion">
+							<span th:if="${product.promotion}" th:text="${product.discount}+'%'"></span>
+						</td>
+						<td class="quantity" th:if="${product.quantity==0}"><span class="out-stock">Hết hàng</span></td>
+						<td class="quantity" th:if="${product.quantity!=0}" th:text=${product.quantity}></td>
+						<td class="viewDescribe"><span class="viewD"><i class="fa-solid fa-eye"></i> Xem</span></td>
+						<td class="createDate" th:text="${#dates.format(product.createDate, 'dd-MM-yyyy')}"></td>
+						<td class="nameC" th:text="${product.category.name}"></td>
+						<td class="action">
+							<span class="edit" data-bs-toggle="modal" th:data-bs-target="'#'+editProduct_+${product.id}"><i class="fa-solid fa-pen"></i> Sửa</span>
+							
+							<div class="modal fade" th:id="'editProduct_'+${product.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật sản phẩm</h1>
+							        <button type="button" class="btn-close btnCloseP" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="data-product modal-body">
+									 <div class="form-group">
+										<label>Tên sản phẩm</label>
+										<input type="text" name="name" class="inpName form-control" th:value="${product.name}">
+										<div class="message msName"></div>
+									</div>
+									
+									<div class="form-group">
+										<label>Ảnh đại diện</label>
+										<div class="ctnPoster">
+											<i class="fa-solid fa-x removePoster"></i>
+											<img class="poster" th:src="'/images/'+${product.images[0]}" width="100%" height="100%">
+										</div>
+										<input type="file" class="file" name="poster" style="display: none;">
+										<div class="message msImage"></div>
+									</div>
+									
+									<div class="form-group">
+										<label>Thêm nhiều ảnh khác</label>
+										<input type="file" class="files form-control" style="display: none;" name="images" multiple="multiple">
+										<br><label class="iconImage"><i class="fa-regular fa-image"></i> chọn ảnh</label>
+										<div class="show-imagesP mt-2 row">
+											<div class="show-file" th:id="'old_'+${imageIndex.index}" th:if="${imageIndex.index > 0}" th:each="image,imageIndex : ${product.images}">
+												<button type="button" class="btnRmImage btn-close" aria-label="Close"></button>
+												<img class="imgsP" th:src="'/images/'+${image}" width="100%">
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label>Giá sản phẩm</label>
+										<input class="inpPrice form-control" type="number" name="price" th:value="${product.price.intValue()}">
+										<div class="message msPrice"></div>
+									</div>
+									
+									<div class="form-group">
+										<label>Số lượng sản phẩm</label>
+										<input class="inpQuantity form-control" type="number" name="quantity" th:value="${product.quantity}">
+										<div class="message msQuantity"></div>
+									</div>
+									
+									<div class="form-group">
+										<label>Mô tả sản phẩm</label>
+										<div class="btnAddDescribe">Thêm mô tả</div>
+										<div class="ctnDescribe row">
+											<input th:value="${#strings.substringBefore(product.describes[0], '|')}" class="describeId form-control" type="text" name="describeId" placeholder="Loại mô tả">
+											<input th:value="${#strings.substringAfter(product.describes[0], '|')}" class="describe form-control" type="text" name="describe" placeholder="Mô tả sản phẩm">
+											<div class="addDescribe" th:if="${describeIndex.index > 0 and #strings.contains(describe, '|')}" th:each="describe, describeIndex : ${product.describes}">
+												<input th:value="${#strings.substringBefore(describe, '|')}" type="text" class="describeId form-control mt-1" name="describeId" placeholder="Loại mô tả">
+												<input th:value="${#strings.substringAfter(describe, '|')}" type="text" class="describe form-control mt-1" name="describe" placeholder="Mô tả sản phẩm" style="margin-left: 4px;">
+												<div class="btnRemoveDescribe">Xóa</div>
+											</div>
+										</div>
+										<div class="message msDescribe"></div>
+									</div>
+									
+									<div class="form-group">
+										<label>Khuyến mãi sản phẩm</label>
+										<select class="promotionP form-control" name="promotion" th:if="${product.promotion}">
+											<option value="false">Không khuyến mãi</option>
+											<option value="true" selected>Có khuyến mãi</option>
+										</select>
+										<select class="promotionP form-control" name="promotion" th:if="${!product.promotion}">
+											<option value="false">Không khuyến mãi</option>
+											<option value="true">Có khuyến mãi</option>
+										</select>
+									</div>
+									
+									<div class="form-group mt-2">
+										<div class="price-promotion" th:if="${product.promotion}">
+											<input th:value="${product.discount}" class="inpDiscount form-control w-50" type="number" name="discount" placeholder="Khuyến mãi phần trăm sản phẩm">
+											<span class="dcPrice" th:text="${#numbers.formatDecimal(product.price * (100 - product.discount) / 100, 0, 'POINT', 0, 'POINT')}+' đ'"></span>
+										</div>
+										<div class="price-promotion" th:if="${!product.promotion}">
+											<input th:value="${product.discount}" class="inpDiscount form-control w-50" type="number" name="discount" placeholder="Khuyến mãi phần trăm sản phẩm">
+											<span class="dcPrice" th:text="${#numbers.formatDecimal(product.price * (100 - product.discount) / 100, 0, 'POINT', 0, 'POINT')}+' đ'"></span>
+										</div>
+										<div class="message msDiscount"></div>
+									</div>
+									
+									<div class="form-group">
+										<label>Thể loại sản phẩm</label>
+										<select class="category form-select" name="categoryId">
+											<option value="0" hidden>Chọn loại sản phẩm</option>
+											<option th:each="category : ${categories}" th:if="${product.category.id==category.id}" selected th:value="${category.id}" th:text="${category.name}"></option>
+											<option th:each="category : ${categories}" th:if="${product.category.id!=category.id}" th:value="${category.id}" th:text="${category.name}"></option>
+										</select>
+										<div class="message msCategory"></div>
+									</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary btnReset" data-bs-dismiss="modal">Hủy</button>
+							        <button type="button" class="btn btn-primary btnSave" th:id="${product.id}">Lưu thay đổi</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							<span class="remove" th:id="${product.id}"><i class="fa-solid fa-trash-can"></i> Xóa</span>
+							<a class="see" th:href="'/product?id='+${product.id}+'&name='+${product.name}">
+								<i class="fa-solid fa-eye"></i> Xem
+							</a>
+					    </td>
+					    
+					    <!--Show nhiều hình ảnh-->
+					    <div class="show-detailImage">
+							<i class="hidden-detailImage fa-solid fa-x"></i>
+						</div>
+					    <div class="show-images">
+							<div class="row">
+								<div class="col-xl-7 col-lg-8 col-md-9 col-sm-10" th:each="image : ${product.images}">
+									<img class="imagesP" th:src="'/images/'+${image}" width="100%" height="100%">
+								</div>
+							</div>
+						</div>
+						
+						<!--Show mô tả-->
+						<div class="show-describe">
+							<i class="hidden-describe fa-solid fa-x"></i>
+						</div>
+						<div class="show-describes">
+							<div class="row">
+								<div th:each="d : ${product.describes}" th:if="${#strings.contains(d, '|')}">
+									<div class="type" th:text="${#strings.substringBefore(d, '|')}"></div>
+									<div class="mx-2" th:text="${#strings.substringAfter(d, '|')}"></div>
+								</div>
+							</div>
+						</div>
+					</tr>
+				</table>
+			</div>
+			
+			<ul id="paging" th:if="${total > 10}">
+				<a class="page" th:href="'/admin/products?'+${pageFilter}+'page=1'"><li>Đầu</li></a>
+				<span th:each="i : ${#numbers.sequence(1, totalPage)}">
+					<span th:if="${i <= 5 && pageNumber <= 2}">
+						<span th:if="${i==pageNumber}">
+							<a class="page" th:href="'/admin/products?'+${pageFilter}+'page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+						</span>
+						<span th:if="${i!=pageNumber}">
+							<a class="page" th:href="'/admin/products?'+${pageFilter}+'page='+${i}"><li th:text="${i}"></li></a>
+						</span>
+					</span>
+					
+					<span th:if="${pageNumber > 2}">
+						<span th:if="${i >= pageNumber-2 && i <= pageNumber+2}">
+							<span th:if="${i==pageNumber}">
+								<a class="page" th:href="'/admin/products?'+${pageFilter}+'page='+${i}"><li style="background-color: lightcoral;" th:text="${i}"></li></a>
+							</span>
+							<span th:if="${i!=pageNumber}">
+								<a class="page" th:href="'/admin/products?'+${pageFilter}+'page='+${i}"><li th:text="${i}"></li></a>
+							</span>
+						</span>
+					</span>
+				</span>
+				<a class="page" th:href="'/admin/products?'+${pageFilter}+'page='+${totalPage}"><li>Cuối</li></a>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="/js/admin/products/products.js"></script>
+</html>

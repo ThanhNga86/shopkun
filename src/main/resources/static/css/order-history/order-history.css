@@ -1,0 +1,253 @@
+@charset "UTF-8";
+
+@media (min-width: 992px) {
+	#containerOrderH {
+		padding: 59px 0 0 0;
+	}
+}
+
+@media (max-width: 992px) {
+	#containerOrderH {
+		padding: 59px 0 0 0;
+	}
+
+	#containerOrderH .order-history .order .action {
+		display: flex;
+		padding-bottom: 3px;
+	}
+}
+
+@media (max-width: 768px) {
+	#containerOrderH {
+		padding: 59px 0 0 0;
+	}
+}
+
+@media (max-width: 576px) {
+	#containerOrderH {
+		padding: 94px 0 0 0;
+	}
+
+	#containerOrderH .order-history .order .action {
+		display: flex;
+		justify-content: space-evenly;
+		padding-bottom: 3px;
+	}
+}
+
+#containerOrderH .instruction {
+	color: white;
+	background-color: lightskyblue;
+}
+
+#containerOrderH .instruction>a {
+	text-decoration: none;
+	color: white;
+	font-size: large;
+}
+
+#containerOrderH .instruction .fa-angle-right {
+	margin: 0 5px;
+}
+
+/*order-history*/
+#containerOrderH .order-history {
+	background-color: white;
+	padding-bottom: 20px;
+}
+
+#containerOrderH .order-history .row {
+	margin: 0;
+}
+
+#containerOrderH .order-history .nav {
+	display: flex;
+	align-items: flex-start;
+}
+
+#containerOrderH .order-history .nav-link {
+	color: black;
+	font-size: 14px;
+	width: 20%;
+	padding: 8px 0;
+}
+
+#containerOrderH .order-history .nav-link:hover {
+	color: deepskyblue;
+}
+
+#containerOrderH .order-history .nav-link.active {
+	color: deepskyblue;
+}
+
+#containerOrderH .order-history .nav .icon>i {
+	font-size: 25px;
+	color: black;
+	opacity: 0.8;
+}
+
+#containerOrderH .order-history .form-control {
+	margin-top: 3px;
+	padding: 3px 6px;
+}
+
+#containerOrderH .order-history .qtityP {
+	font-size: 10px;
+	margin-top: 2px;
+}
+
+#containerOrderH .order-history .not-order {
+	text-align: center;
+	font-size: larger;
+	color: lightsalmon;
+}
+
+#containerOrderH .order-history .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(13, 110, 253, .25);
+}
+
+#containerOrderH .order-history .tab-content {
+	margin-top: 10px;
+}
+
+#containerOrderH .order-history .order {
+	padding-top: 3px;
+	border-top: solid 1px lightgray;
+}
+
+#containerOrderH .order-history .order .orderDetail {
+	text-decoration: none;
+	color: black;
+	display: flex;
+	margin-bottom: 5px;
+}
+
+#containerOrderH .order-history .order .heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#containerOrderH .order-history .order .id {
+	font-size: large;
+	font-weight: 500;
+	white-space: nowrap;
+	margin-right: 3px;
+}
+
+#containerOrderH .order-history .order .createDate {
+	color: darkgray;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#containerOrderH .order-history .order .info {
+	padding: 0 10px;
+	overflow: hidden;
+}
+
+#containerOrderH .order-history .order .info .name {
+	font-size: large;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#containerOrderH .order-history .order .info>del {
+	color: darkgray;
+}
+
+#containerOrderH .order-history .order .info .total {
+	font-size: 16px;
+	font-weight: 500;
+}
+
+#containerOrderH .order-history .order .totalPay {
+	font-size: large;
+	font-weight: 500;
+}
+
+#containerOrderH .order-history .order .totalPay>span {
+	color: rgb(255, 73, 22);
+}
+
+#containerOrderH .order-history .order .action .cancel {
+	padding: 3px 10px;
+	border-radius: 6px;
+	background-color: lightslategray;
+	color: white;
+	font-size: 14px;
+	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrderH .order-history .order .action .repurchase {
+	margin-left: 3px;
+	padding: 3px 10px;
+	border-radius: 6px;
+	background-color: darkseagreen;
+	color: white;
+	font-size: 14px;
+	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrderH .order-history .order .action .seeInfo {
+	margin-left: 3px;
+	padding: 3px 10px;
+	border-radius: 6px;
+	background-color: skyblue;
+	color: white;
+	font-size: 14px;
+	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+}
+
+#containerOrderH .order-history .order .table .head>td{
+	font-size: large;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+#containerOrderH .order-history .viewMore {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#containerOrderH .order-history .viewMore .btnViewMore {
+    border-radius: 10px;
+    color: deepskyblue;
+    font-size: large;
+    cursor: pointer;
+    padding: 3px 6px;
+    user-select: none;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid lightskyblue;
+  border-color: lightskyblue transparent lightskyblue transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
