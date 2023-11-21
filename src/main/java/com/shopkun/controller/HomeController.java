@@ -201,17 +201,6 @@ public class HomeController {
 		List<Product> suggestProducts = daoProduct.findAllShuffle();
 		long totalSP = suggestProducts.size();
 
-		// xóa dữ liệu cũ rồi nạp dữ liệu mới vào cookie
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().contains("suggestP_")) {
-					cookie.setMaxAge(0);
-					cookie.setPath("/");
-					response.addCookie(cookie);
-				}
-			}
-		}
 		if (totalSP > sizePage) {
 			for (Product product : suggestProducts) {
 				Cookie cookie = new Cookie("suggestP_" + product.getId(), product.getId() + "");
